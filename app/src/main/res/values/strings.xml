@@ -3,4 +3,7 @@
     <string name="title_albums">Álbumes</string>
     <string name="title_artists">Artistas</string>
     <string name="title_collectors">Coleccionistas</string>
+    <string name="type_artist_band">Grupo</string>
+    <string name="type_artist_musician">Solista</string>
+
 </resources>
