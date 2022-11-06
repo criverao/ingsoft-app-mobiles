@@ -33,7 +33,7 @@ class MusiciansAdapter  : RecyclerView.Adapter<MusiciansAdapter.MusicianViewHold
     override fun onBindViewHolder(holder: MusicianViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.musician = musicians[position]
-            musicians[position].image?.let { urlImagen ->
+            musicians[position].image.let { urlImagen ->
                 val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
                 it.imageView.load(imgUri)
             }

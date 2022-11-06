@@ -3,8 +3,10 @@ package com.example.ingsoftappmobiles.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ItemAlbumListBinding
 import com.example.ingsoftappmobiles.models.Album
@@ -28,7 +30,15 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {
         holder.viewDataBinding.also {
+            //albums[position].releaseYear = albums[position].releaseDate.substring(0..3)
+            //albums[position].excerpt = albums[position].description.substring(0..56) + "..."
+
             it.album = albums[position]
+            albums[position].cover.let { urlImagen ->
+                val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
+                it.imageCover.load(imgUri)
+            }
+
         }
     }
 

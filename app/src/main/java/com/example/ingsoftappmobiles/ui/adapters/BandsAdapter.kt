@@ -32,7 +32,7 @@ class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
     override fun onBindViewHolder(holder: BandViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.band = bands[position]
-            bands[position].image?.let { urlImagen ->
+            bands[position].image.let { urlImagen ->
                 val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
                 it.imageView.load(imgUri)
             }
