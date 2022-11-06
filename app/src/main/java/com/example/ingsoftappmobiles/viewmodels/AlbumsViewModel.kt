@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
 
-class AlbumsViewModel(application: Application) :  AndroidViewModel(application) {
+class AlbumsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val albumsRepository = AlbumsRepository(application)
 

@@ -6,17 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
-import com.example.ingsoftappmobiles.models.Band
-import com.example.ingsoftappmobiles.models.Musician
-import com.example.ingsoftappmobiles.ui.adapters.BandsAdapter
-import com.example.ingsoftappmobiles.ui.adapters.MusiciansAdapter
 import com.example.ingsoftappmobiles.viewmodels.ArtistViewModel
 import com.example.ingsoftappmobiles.databinding.FragmentArtistsBinding
 import com.example.ingsoftappmobiles.models.Artist

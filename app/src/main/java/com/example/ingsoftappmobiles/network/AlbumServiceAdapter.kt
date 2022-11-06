@@ -10,14 +10,14 @@ import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.Album
 import org.json.JSONArray
 
-class NetworkServiceAdapter constructor(context: Context) {
+class AlbumServiceAdapter constructor(context: Context) {
 
     companion object {
         const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: NetworkServiceAdapter? = null
+        var instance: AlbumServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
-                instance ?: NetworkServiceAdapter(context).also {
+                instance ?: AlbumServiceAdapter(context).also {
                     instance = it
                 }
             }
@@ -40,7 +40,9 @@ class NetworkServiceAdapter constructor(context: Context) {
                         recordLabel = item.getString("recordLabel"),
                         releaseDate = item.getString("releaseDate"),
                         genre = item.getString("genre"),
-                        description = item.getString("description"))
+                        description = item.getString("description"),
+                        releaseYear = item.getString("releaseDate").substring(0..3),
+                        excerpt = item.getString("description").substring(0..56) + "...")
                     )
                 }
                 onComplete(list)
