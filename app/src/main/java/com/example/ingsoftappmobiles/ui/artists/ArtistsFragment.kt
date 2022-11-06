@@ -19,6 +19,8 @@ import com.example.ingsoftappmobiles.ui.adapters.BandsAdapter
 import com.example.ingsoftappmobiles.ui.adapters.MusiciansAdapter
 import com.example.ingsoftappmobiles.viewmodels.ArtistViewModel
 import com.example.ingsoftappmobiles.databinding.FragmentArtistsBinding
+import com.example.ingsoftappmobiles.models.Artist
+import com.example.ingsoftappmobiles.ui.adapters.ArtistsAdapter
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -27,11 +29,9 @@ class ArtistsFragment : Fragment() {
     private var _binding: FragmentArtistsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var recyclerViewBand: RecyclerView
-    private lateinit var recyclerViewMusician: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: ArtistViewModel
-    private var bandViewModelAdapter: BandsAdapter? = null
-    private var musicianViewModelAdapter: MusiciansAdapter? = null
+    private var viewModelAdapter: ArtistsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +39,7 @@ class ArtistsFragment : Fragment() {
     ): View? {
         _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         val view = binding.root
-        bandViewModelAdapter = BandsAdapter()
-        musicianViewModelAdapter = MusiciansAdapter()
+        viewModelAdapter = ArtistsAdapter()
         return view
     }
 
@@ -49,9 +48,9 @@ class ArtistsFragment : Fragment() {
 //        recyclerViewBand.layoutManager = LinearLayoutManager(context)
 //        recyclerViewBand.adapter = bandViewModelAdapter
 
-        recyclerViewMusician = binding.musiciansRv
-        recyclerViewMusician.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        recyclerViewMusician.adapter = musicianViewModelAdapter
+        recyclerView = binding.artistsRv
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.adapter = viewModelAdapter
 
     }
 
@@ -62,17 +61,12 @@ class ArtistsFragment : Fragment() {
         }
         activity.actionBar?.title = getString(R.string.title_artists)
         viewModel = ViewModelProvider(this, ArtistViewModel.Factory(activity.application)).get(ArtistViewModel::class.java)
-        viewModel.bands.observe(viewLifecycleOwner, Observer<List<Band>> {
+        viewModel.artists.observe(viewLifecycleOwner, Observer<List<Artist>> {
             it.apply {
-                bandViewModelAdapter!!.bands = this
+                viewModelAdapter!!.artists = this
             }
         })
 
-        viewModel.musicians.observe(viewLifecycleOwner, Observer<List<Musician>> {
-            it.apply {
-                musicianViewModelAdapter!!.musicians = this
-            }
-        })
 
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->

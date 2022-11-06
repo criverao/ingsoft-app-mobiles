@@ -7,6 +7,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.models.Band
 import com.example.ingsoftappmobiles.models.Musician
 import org.json.JSONArray
@@ -60,6 +61,38 @@ class ArtistServiceAdapter constructor(context: Context) {
             }))
     }
 
+
+    fun getMusiciansOnArtist(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+        requestQueue.add(getRequest("musicians",
+            Response.Listener<String> { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, Artist(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), creationBrithDate = item.getString("birthDate"), tipo="Solista"))
+                }
+                onComplete(list)
+            },
+            Response.ErrorListener {
+                onError(it)
+            }))
+    }
+
+    fun getBandsOnArtist(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+        requestQueue.add(getRequest("bands",
+            Response.Listener<String> { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, Artist(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), creationBrithDate = item.getString("creationDate"), tipo = "Banda"))
+                }
+                onComplete(list)
+            },
+            Response.ErrorListener {
+                onError(it)
+            }))
+    }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener,errorListener)

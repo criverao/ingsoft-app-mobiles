@@ -3,23 +3,18 @@ package com.example.ingsoftappmobiles.viewmodels
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.ingsoftappmobiles.models.Band
-import com.example.ingsoftappmobiles.models.Musician
+import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.repositories.BandRepository
-import com.example.ingsoftappmobiles.repositories.MusicianRepository
+import com.example.ingsoftappmobiles.repositories.ArtistsRepository
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val musiciansRepository = MusicianRepository(application)
-    private val bandsRepository = BandRepository(application)
+    private val artistsRepository = ArtistsRepository(application)
 
-    private val _musicians = MutableLiveData<List<Musician>>()
-    private val _bands = MutableLiveData<List<Band>>()
+    private val _artists = MutableLiveData<List<Artist>>()
 
-    val musicians: LiveData<List<Musician>>
-        get() = _musicians
-
-    val bands: LiveData<List<Band>>
-        get() = _bands
+    val artists: LiveData<List<Artist>>
+        get() = _artists
 
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -36,21 +31,19 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
     }
 
     private fun refreshDataFromNetwork() {
-        musiciansRepository.refreshData({
-            _musicians.postValue(it)
+        artistsRepository.refreshData({
+            _artists.postValue(it)
+            _eventNetworkError.value = false
+            _isNetworkErrorShown.value = false
+        },
+            {
+            _artists.value = _artists.value.orEmpty() + it
             _eventNetworkError.value = false
             _isNetworkErrorShown.value = false
         },{
             _eventNetworkError.value = true
-        })
-
-        bandsRepository.refreshData({
-            _bands.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
-            _eventNetworkError.value = true
-        })
+        }
+        )
 
     }
 
