@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_albums"
-        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumsFragment"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumListFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/fragment_albums" />
+        tools:layout="@layout/fragment_album_list" />
 
     <fragment
         android:id="@+id/navigation_artists"
