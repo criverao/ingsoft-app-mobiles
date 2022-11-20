@@ -9,7 +9,17 @@
         android:id="@+id/navigation_albums"
         android:name="com.example.ingsoftappmobiles.ui.albums.AlbumListFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/fragment_album_list" />
+        tools:layout="@layout/fragment_album_list" >
+        <action
+            android:id="@+id/action_navigation_albums_to_navigation_create_album"
+            app:destination="@id/navigation_create_album" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_album"
+        android:name="com.example.ingsoftappmobiles.ui.albums.CreateAlbumFragment"
+        android:label="@string/title_create_album"
+        tools:layout="@layout/album_create" />
 
     <fragment
         android:id="@+id/navigation_artists"
@@ -22,4 +32,5 @@
         android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorsFragment"
         android:label="@string/title_collectors"
         tools:layout="@layout/fragment_collectors" />
+
 </navigation>

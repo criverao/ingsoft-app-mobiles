@@ -5,5 +5,15 @@
     <string name="title_collectors">Coleccionistas</string>
     <string name="type_artist_band">Grupo</string>
     <string name="type_artist_musician">Solista</string>
+    <string name="add_album">Crear</string>
+    <string name="name">Nombre</string>
+    <string name="image">Imagen</string>
+    <string name="release_date">Fecha de lanzamiento</string>
+    <string name="desc">Descripción</string>
+    <string name="genre">Género musical</string>
+    <string name="disco">Nombre Casa discográfica</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="create_button">Crear</string>
+    <string name="title_create_album">Nuevo Album</string>
 
 </resources>
