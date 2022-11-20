@@ -41,9 +41,6 @@ class AlbumListFragment : Fragment() {
 
         viewModelAdapter = AlbumsAdapter()
         return root
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

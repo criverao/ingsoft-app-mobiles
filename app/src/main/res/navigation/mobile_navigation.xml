@@ -15,7 +15,11 @@
             app:destination="@id/navigation_create_album" />
     </fragment>
 
-
+    <fragment
+        android:id="@+id/navigation_create_album"
+        android:name="com.example.ingsoftappmobiles.ui.albums.CreateAlbumFragment"
+        android:label="@string/title_create_album"
+        tools:layout="@layout/album_create" />
 
     <fragment
         android:id="@+id/navigation_artists"
@@ -26,15 +30,7 @@
     <fragment
         android:id="@+id/navigation_collectors"
         android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorsFragment"
-        android:label="@string/title_create_album"
+        android:label="@string/title_collectors"
         tools:layout="@layout/fragment_collectors" />
-
-    <fragment
-        android:id="@+id/navigation_create_album"
-        android:name="com.example.ingsoftappmobiles.ui.albums.CreateAlbumFragment"
-        android:label="@string/title_create_album"
-        tools:layout="@layout/album_create" />
-
-
 
 </navigation>

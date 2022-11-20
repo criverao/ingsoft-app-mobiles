@@ -18,7 +18,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import com.google.gson.Gson
 
-
 class AlbumServiceAdapter constructor(context: Context) {
 
     companion object {
@@ -39,6 +38,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     private val context2:Context by lazy {
         context
     }
+
     suspend fun getAlbums() = suspendCoroutine<List<Album>>{ cont->
         requestQueue.add(getRequest("albums",
             Response.Listener<String> { response ->
@@ -68,7 +68,6 @@ class AlbumServiceAdapter constructor(context: Context) {
     fun postAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit) {
         var gson = Gson()
 
-
         val postParams = mapOf<String, Any>(
             "name" to album.name,
             "cover" to album.cover,
@@ -95,4 +94,6 @@ class AlbumServiceAdapter constructor(context: Context) {
     fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
         return  JsonObjectRequest(Request.Method.POST, BASE_URL +path, body, responseListener, errorListener)
     }
+
+
 }
