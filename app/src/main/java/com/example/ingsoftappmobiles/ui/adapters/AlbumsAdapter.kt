@@ -6,12 +6,13 @@ import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+
 import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ItemAlbumListBinding
 import com.example.ingsoftappmobiles.models.Album
 
-class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
+class AlbumsAdapter :    RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
     var albums :List<Album> = emptyList()
         set(value) {
@@ -27,6 +28,8 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
             false)
         return AlbumsViewHolder(withDataBinding)
     }
+
+
 
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {
         holder.viewDataBinding.also {

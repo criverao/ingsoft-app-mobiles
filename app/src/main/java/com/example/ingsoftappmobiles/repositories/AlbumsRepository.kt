@@ -15,4 +15,8 @@ class AlbumsRepository (private val application: Application){
             onError
         )
     }
+
+    fun createAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit){
+        AlbumServiceAdapter.getInstance(application).postAlbum(album, onComplete, onError)
+    }
 }

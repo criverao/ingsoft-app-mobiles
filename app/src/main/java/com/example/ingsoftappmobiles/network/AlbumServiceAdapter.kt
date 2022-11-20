@@ -1,14 +1,20 @@
 package com.example.ingsoftappmobiles.network
 
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.Album
 import org.json.JSONArray
+import org.json.JSONObject
+import com.google.gson.Gson
+
 
 class AlbumServiceAdapter constructor(context: Context) {
 
@@ -25,6 +31,10 @@ class AlbumServiceAdapter constructor(context: Context) {
     private val requestQueue: RequestQueue by lazy {
         // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
+    }
+
+    private val context2:Context by lazy {
+        context
     }
     fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error:VolleyError)->Unit){
         requestQueue.add(getRequest("albums",
@@ -52,7 +62,36 @@ class AlbumServiceAdapter constructor(context: Context) {
             }))
     }
 
+    fun postAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit) {
+        var gson = Gson()
+
+
+        val postParams = mapOf<String, Any>(
+            "name" to album.name,
+            "cover" to album.cover,
+            "description" to album.description,
+            "genre" to album.genre,
+            "recordLabel" to album.recordLabel,
+            "releaseDate" to album.releaseDate
+        )
+        Log.d("TAG", JSONObject(postParams).toString())
+        requestQueue.add(postRequest("albums",
+            JSONObject(postParams),
+            Response.Listener<JSONObject> { response ->
+                onComplete(gson.fromJson(response.toString(), Album::class.java))
+            },
+            Response.ErrorListener {
+                onError(it)
+            }))
+    }
+
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener, errorListener)
     }
+
+    fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
+        return  JsonObjectRequest(Request.Method.POST, BASE_URL +path, body, responseListener, errorListener)
+    }
+
+
 }
