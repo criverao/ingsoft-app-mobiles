@@ -5,23 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
-import com.example.ingsoftappmobiles.databinding.FragmentAlbumListBinding
+import com.example.ingsoftappmobiles.databinding.FragmentAlbumsBinding
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.ui.adapters.AlbumsAdapter
 import com.example.ingsoftappmobiles.viewmodels.AlbumsViewModel
 
-class AlbumListFragment : Fragment() {
+class AlbumsFragment : Fragment() {
 
-    private var _binding: FragmentAlbumListBinding? = null
+    private var _binding: FragmentAlbumsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,7 +33,7 @@ class AlbumListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentAlbumListBinding.inflate(inflater, container, false)
+        _binding = FragmentAlbumsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         viewModelAdapter = AlbumsAdapter()
