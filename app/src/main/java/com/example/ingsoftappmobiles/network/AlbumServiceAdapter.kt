@@ -11,6 +11,9 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.Album
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 import org.json.JSONArray
 import org.json.JSONObject
 import com.google.gson.Gson
@@ -36,14 +39,14 @@ class AlbumServiceAdapter constructor(context: Context) {
     private val context2:Context by lazy {
         context
     }
-    fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getAlbums() = suspendCoroutine<List<Album>>{ cont->
         requestQueue.add(getRequest("albums",
             Response.Listener<String> { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Album>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Album(
+                    val album = Album(
                         albumId = item.getInt("id"),
                         name = item.getString("name"),
                         cover = item.getString("cover"),
@@ -53,12 +56,12 @@ class AlbumServiceAdapter constructor(context: Context) {
                         description = item.getString("description"),
                         releaseYear = item.getString("releaseDate").substring(0..3),
                         excerpt = item.getString("description").substring(0..56) + "...")
-                    )
+                    list.add(i, album) // se agrega a medida que se procesa la respuesta
                 }
-                onComplete(list)
+                cont.resume(list)
             },
             Response.ErrorListener {
-                onError(it)
+                cont.resumeWithException(it)
             }))
     }
 
@@ -92,6 +95,4 @@ class AlbumServiceAdapter constructor(context: Context) {
     fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
         return  JsonObjectRequest(Request.Method.POST, BASE_URL +path, body, responseListener, errorListener)
     }
-
-
 }
