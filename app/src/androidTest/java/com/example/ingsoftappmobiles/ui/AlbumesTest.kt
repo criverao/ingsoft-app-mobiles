@@ -36,7 +36,7 @@ class AlbumesTest {
 
         val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.navigation_albums), withContentDescription("Álbumes"),
+                withId(R.id.albumsFragment), withContentDescription("Álbumes"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),
