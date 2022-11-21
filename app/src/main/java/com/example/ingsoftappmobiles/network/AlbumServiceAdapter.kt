@@ -98,10 +98,10 @@ class AlbumServiceAdapter constructor(context: Context) {
         Log.d("TAG", JSONObject(postParams).toString())
         requestQueue.add(postRequest("albums",
             JSONObject(postParams),
-            Response.Listener<JSONObject> { response ->
+            { response ->
                 onComplete(gson.fromJson(response.toString(), Album::class.java))
             },
-            Response.ErrorListener {
+            {
                 onError(it)
             }))
     }
