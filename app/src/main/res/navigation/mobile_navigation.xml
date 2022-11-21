@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_albums">
+    app:startDestination="@+id/albumsFragment">
 
     <fragment
-        android:id="@+id/navigation_albums"
-        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumListFragment"
+        android:id="@+id/albumsFragment"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumsFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/fragment_album_list" >
+        tools:layout="@layout/albums_fragment" >
         <action
             android:id="@+id/action_navigation_albums_to_navigation_create_album"
             app:destination="@id/navigation_create_album" />
+        <action
+            android:id="@+id/action_albumsFragment_to_albumDetailFragment"
+            app:destination="@id/albumDetailFragment" />
     </fragment>
 
     <fragment
@@ -20,6 +24,16 @@
         android:name="com.example.ingsoftappmobiles.ui.albums.CreateAlbumFragment"
         android:label="@string/title_create_album"
         tools:layout="@layout/album_create" />
+
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumDetailFragment"
+        android:label="album_detail_fragment"
+        tools:layout="@layout/album_detail_fragment" >
+        <argument
+            android:name="albumId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_artists"

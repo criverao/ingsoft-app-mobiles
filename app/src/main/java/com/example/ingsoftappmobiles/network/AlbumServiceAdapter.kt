@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.Album
+import com.example.ingsoftappmobiles.models.AlbumDetail
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -35,13 +36,9 @@ class AlbumServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    private val context2:Context by lazy {
-        context
-    }
-
     suspend fun getAlbums() = suspendCoroutine<List<Album>>{ cont->
         requestQueue.add(getRequest("albums",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Album>()
                 for (i in 0 until resp.length()) {
@@ -55,12 +52,35 @@ class AlbumServiceAdapter constructor(context: Context) {
                         genre = item.getString("genre"),
                         description = item.getString("description"),
                         releaseYear = item.getString("releaseDate").substring(0..3),
-                        excerpt = item.getString("description").substring(0..56) + "...")
+                        excerpt = item.getString("description").substring(0..5) + "...")
                     list.add(i, album) // se agrega a medida que se procesa la respuesta
                 }
                 cont.resume(list)
             },
-            Response.ErrorListener {
+            {
+                cont.resumeWithException(it)
+            }))
+    }
+
+    suspend fun getAlbum(albumId:Int) = suspendCoroutine { cont->
+        requestQueue.add(getRequest("albums/$albumId",
+            { response ->
+                val resp = JSONArray(response)
+                val item = resp.getJSONObject(0)
+                Log.d("Response", item.toString())
+                val album = AlbumDetail(
+                    albumId = item.getInt("id"),
+                    name = item.getString("name"),
+                    cover = item.getString("cover"),
+                    recordLabel = item.getString("recordLabel"),
+                    releaseDate = item.getString("releaseDate"),
+                    genre = item.getString("genre"),
+                    description = item.getString("description")
+                )
+
+                cont.resume(album)
+            },
+            {
                 cont.resumeWithException(it)
             }))
     }

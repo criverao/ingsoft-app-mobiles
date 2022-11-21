@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.ingsoftappmobiles.R
-import com.example.ingsoftappmobiles.databinding.ItemAlbumListBinding
+import com.example.ingsoftappmobiles.databinding.AlbumItemBinding
 import com.example.ingsoftappmobiles.models.Album
+//import com.example.ingsoftappmobiles.ui.albums.AlbumsFragmentDirections
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
@@ -20,7 +22,7 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumsViewHolder {
-        val withDataBinding: ItemAlbumListBinding = DataBindingUtil.inflate(
+        val withDataBinding: AlbumItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             AlbumsViewHolder.LAYOUT,
             parent,
@@ -40,17 +42,22 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
             }
 
         }
+        /*holder.viewDataBinding.root.setOnClickListener {
+            val action = AlbumsFragmentDirections.actionAlbumsFragmentToAlbumDetailFragment(albums[position].albumId)
+            // Navigate using that action
+            holder.viewDataBinding.root.findNavController().navigate(action)
+        }*/
     }
 
     override fun getItemCount(): Int {
         return albums.size
     }
 
-    class AlbumsViewHolder(val viewDataBinding: ItemAlbumListBinding) :
+    class AlbumsViewHolder(val viewDataBinding: AlbumItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
-            val LAYOUT = R.layout.item_album_list
+            val LAYOUT = R.layout.album_item
         }
     }
 }
