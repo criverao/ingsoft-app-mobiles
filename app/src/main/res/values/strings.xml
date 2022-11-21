@@ -7,16 +7,14 @@
     <string name="type_artist_band">Grupo</string>
     <string name="type_artist_musician">Solista</string>
     <string name="add_album">Crear</string>
-    <string name="name">Nombre</string>
+    <string name="name">Nombre</string>∫
     <string name="image">Imagen</string>
     <string name="release_date">Fecha de lanzamiento</string>
     <string name="desc">Descripción</string>
-    <string name="genre">Género musical</string>
-    <string name="disco">Nombre Casa discográfica</string>
     <string name="cancel_button">Cancelar</string>
     <string name="create_button">Crear</string>
     <string name="title_create_album">Nuevo Album</string>
-    <string name="txt_no_comments">No hay comentarios para este álbum</string>
-    <string name="title_comments">Comentarios del álbum</string>
+    <string name="selector_genero">Seleccione un Género</string>
+    <string name="disquera">Casa Discrográfica</string>
 
 </resources>

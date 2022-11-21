@@ -2,20 +2,15 @@ package com.example.ingsoftappmobiles.ui.albums
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumDetailFragmentBinding
-import com.example.ingsoftappmobiles.models.Album
-import com.example.ingsoftappmobiles.models.AlbumDetail
 import com.example.ingsoftappmobiles.ui.adapters.AlbumDetailAdapter
 import com.example.ingsoftappmobiles.viewmodels.AlbumDetailViewModel
 
@@ -30,7 +25,7 @@ class AlbumDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = AlbumDetailFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModelAdapter = AlbumDetailAdapter()
@@ -57,9 +52,9 @@ class AlbumDetailFragment : Fragment() {
                 viewModelAdapter!!.album = this
             }
         }
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

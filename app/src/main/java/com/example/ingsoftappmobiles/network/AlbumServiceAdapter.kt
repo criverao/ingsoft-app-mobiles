@@ -2,7 +2,6 @@ package com.example.ingsoftappmobiles.network
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -99,10 +98,10 @@ class AlbumServiceAdapter constructor(context: Context) {
         Log.d("TAG", JSONObject(postParams).toString())
         requestQueue.add(postRequest("albums",
             JSONObject(postParams),
-            Response.Listener<JSONObject> { response ->
+            { response ->
                 onComplete(gson.fromJson(response.toString(), Album::class.java))
             },
-            Response.ErrorListener {
+            {
                 onError(it)
             }))
     }

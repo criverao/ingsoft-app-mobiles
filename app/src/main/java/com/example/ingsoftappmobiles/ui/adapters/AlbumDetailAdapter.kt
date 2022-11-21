@@ -1,5 +1,6 @@
 package com.example.ingsoftappmobiles.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -7,12 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.AlbumDetail
 
 class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailViewHolder>(){
 
     var album : AlbumDetail? = null
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

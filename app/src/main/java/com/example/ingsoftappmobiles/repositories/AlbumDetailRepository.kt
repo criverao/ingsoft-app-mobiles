@@ -1,7 +1,6 @@
 package com.example.ingsoftappmobiles.repositories
 
 import android.app.Application
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.AlbumDetail
 import com.example.ingsoftappmobiles.network.AlbumServiceAdapter
 

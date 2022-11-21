@@ -27,7 +27,7 @@ class CollectorServiceAdapter constructor(context: Context){
     }
     fun getCollectors(onComplete:(resp:List<Collector>)->Unit, onError: (error: VolleyError)->Unit){
         requestQueue.add(getRequest("collectors",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Collector>()
                 for (i in 0 until resp.length()) {
@@ -41,11 +41,11 @@ class CollectorServiceAdapter constructor(context: Context){
                 }
                 onComplete(list)
             },
-            Response.ErrorListener {
+            {
                 onError(it)
             }))
     }
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
-        return StringRequest(Request.Method.GET, CollectorServiceAdapter.BASE_URL +path, responseListener, errorListener)
+        return StringRequest(Request.Method.GET, BASE_URL +path, responseListener, errorListener)
     }
 }

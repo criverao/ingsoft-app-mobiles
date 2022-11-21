@@ -3,33 +3,19 @@ package com.example.ingsoftappmobiles.ui.albums
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Response
-import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumCreateBinding
-import com.example.ingsoftappmobiles.databinding.FragmentArtistsBinding
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
-import com.example.ingsoftappmobiles.ui.adapters.AlbumsAdapter
-import com.example.ingsoftappmobiles.viewmodels.AlbumsViewModel
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class CreateAlbumFragment : Fragment() {
@@ -53,10 +39,9 @@ class CreateAlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = AlbumCreateBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         //viewModelAdapter = AlbumsAdapter()
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,30 +77,30 @@ class CreateAlbumFragment : Fragment() {
             val discTxt : AutoCompleteTextView? = _binding?.txtAlbumDisc
             val genreTxt : AutoCompleteTextView? = _binding?.txtAlbumGenre
 
-            val year = dateTxt?.year;
-            val month = dateTxt?.month;
-            val day = dateTxt?.dayOfMonth;
+            val year = dateTxt?.year
+            val month = dateTxt?.month
+            val day = dateTxt?.dayOfMonth
 
-            val calendar:Calendar = Calendar.getInstance();
+            val calendar:Calendar = Calendar.getInstance()
             if (year != null) {
                 if (month != null) {
                     if (day != null) {
                         calendar.set(year, month, day)
                     }
                 }
-            };
+            }
 
-            val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
-            val strDate:String = format.format(calendar.getTime());
+            val format = SimpleDateFormat("yyyy-MM-dd")
+            val strDate:String = format.format(calendar.getTime())
             strDate.plus("T00:00:00-05:00")
 
 
-            val album:Album = Album(0, nameTxt?.text.toString(), imageTxt?.text.toString(), strDate,
+            val album = Album(0, nameTxt?.text.toString(), imageTxt?.text.toString(), strDate,
                 descTxt?.text.toString(),genreTxt?.text.toString(),discTxt?.text.toString(),
                 year.toString(), " ")
 
             albumsRepository = AlbumsRepository(activity.application)
-            albumsRepository?.createAlbum(album,{
+            albumsRepository.createAlbum(album,{
                 Toast.makeText(context, "El album fue creado con éxito", Toast.LENGTH_SHORT).show()
                 NavHostFragment.findNavController(this@CreateAlbumFragment).navigateUp()
             },{

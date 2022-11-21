@@ -2,9 +2,7 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Band
 import com.example.ingsoftappmobiles.models.Artist
-import com.example.ingsoftappmobiles.repositories.BandRepository
 import com.example.ingsoftappmobiles.repositories.ArtistsRepository
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
@@ -16,12 +14,12 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
     val artists: LiveData<List<Artist>>
         get() = _artists
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown

@@ -2,7 +2,6 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.AlbumDetail
 import com.example.ingsoftappmobiles.repositories.AlbumDetailRepository
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +17,12 @@ class AlbumDetailViewModel(application: Application, albumId: Int) : AndroidView
     val album: LiveData<AlbumDetail>
         get() = _album
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown

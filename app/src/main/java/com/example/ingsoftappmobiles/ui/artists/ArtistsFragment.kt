@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.viewmodels.ArtistViewModel
 import com.example.ingsoftappmobiles.databinding.FragmentArtistsBinding
-import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.ui.adapters.ArtistsAdapter
 
 /**
@@ -30,7 +28,7 @@ class ArtistsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModelAdapter = ArtistsAdapter()
@@ -55,17 +53,17 @@ class ArtistsFragment : Fragment() {
         }
         activity.actionBar?.title = getString(R.string.title_artists)
         viewModel = ViewModelProvider(this, ArtistViewModel.Factory(activity.application)).get(ArtistViewModel::class.java)
-        viewModel.artists.observe(viewLifecycleOwner, Observer<List<Artist>> {
+        viewModel.artists.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.artists = this
             }
-        })
+        }
 
 
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
