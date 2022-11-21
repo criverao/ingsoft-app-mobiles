@@ -1,4 +1,5 @@
 package com.example.ingsoftappmobiles.ui.adapters
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -14,6 +15,7 @@ import coil.load
 class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
 
     var bands :List<Band> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

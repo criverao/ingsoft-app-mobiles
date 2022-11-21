@@ -1,4 +1,5 @@
 package com.example.ingsoftappmobiles.ui.adapters
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -15,6 +16,7 @@ import com.example.ingsoftappmobiles.models.Musician
 class MusiciansAdapter  : RecyclerView.Adapter<MusiciansAdapter.MusicianViewHolder>(){
 
     var musicians :List<Musician> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

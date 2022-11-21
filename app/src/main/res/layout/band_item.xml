@@ -32,6 +32,7 @@
                     android:maxWidth="187dp"
                     android:maxHeight="179dp"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@{band.name}"
                     />
 
                 <TextView
