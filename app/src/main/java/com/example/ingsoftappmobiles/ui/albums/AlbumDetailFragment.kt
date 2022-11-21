@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumDetailFragmentBinding
-import com.example.ingsoftappmobiles.models.Album
-import com.example.ingsoftappmobiles.models.AlbumDetail
 import com.example.ingsoftappmobiles.ui.adapters.AlbumDetailAdapter
 import com.example.ingsoftappmobiles.viewmodels.AlbumDetailViewModel
 

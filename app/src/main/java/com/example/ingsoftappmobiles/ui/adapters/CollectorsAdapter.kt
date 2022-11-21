@@ -3,11 +3,8 @@ package com.example.ingsoftappmobiles.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.CollectorItemBinding
 import com.example.ingsoftappmobiles.models.Collector

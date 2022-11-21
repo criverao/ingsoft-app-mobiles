@@ -2,7 +2,6 @@ package com.example.ingsoftappmobiles.network
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response

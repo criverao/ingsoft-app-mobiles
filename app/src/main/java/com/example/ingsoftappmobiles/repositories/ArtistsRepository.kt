@@ -3,8 +3,6 @@ package com.example.ingsoftappmobiles.repositories
 import android.app.Application
 import com.android.volley.VolleyError
 import com.example.ingsoftappmobiles.models.Artist
-import com.example.ingsoftappmobiles.models.Band
-import com.example.ingsoftappmobiles.models.Musician
 import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
 class ArtistsRepository (val application: Application) {

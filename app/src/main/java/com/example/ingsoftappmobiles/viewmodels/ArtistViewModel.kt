@@ -2,9 +2,7 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Band
 import com.example.ingsoftappmobiles.models.Artist
-import com.example.ingsoftappmobiles.repositories.BandRepository
 import com.example.ingsoftappmobiles.repositories.ArtistsRepository
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {

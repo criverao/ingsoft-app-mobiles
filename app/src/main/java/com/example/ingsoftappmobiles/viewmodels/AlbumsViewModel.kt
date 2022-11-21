@@ -1,7 +1,6 @@
 package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository

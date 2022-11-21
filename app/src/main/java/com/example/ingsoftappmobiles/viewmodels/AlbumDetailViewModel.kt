@@ -2,7 +2,6 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.AlbumDetail
 import com.example.ingsoftappmobiles.repositories.AlbumDetailRepository
 import kotlinx.coroutines.Dispatchers

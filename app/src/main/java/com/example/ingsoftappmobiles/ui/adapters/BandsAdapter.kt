@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.BandItemBinding
