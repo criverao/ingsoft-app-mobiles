@@ -1,9 +1,9 @@
 package com.example.ingsoftappmobiles.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -30,16 +30,26 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Get the navigation host fragment from this Activity
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        // Instantiate the navController using the NavHostFragment
+        navController = navHostFragment.navController
+        // Make sure actions in the ActionBar get propagated to the NavController
+        Log.d("act", navController.toString())
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        //setupActionBarWithNavController(navController)
+
+        //navController = findNavController(R.id.nav_host_fragment_activity_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_albums, R.id.navigation_artists, R.id.navigation_collectors
+                R.id.albumsFragment, R.id.navigation_artists, R.id.navigation_collectors
             )
         )
-        setSupportActionBar(findViewById(R.id.my_toolbar))
+        //setSupportActionBar(findViewById(R.id.my_toolbar))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
