@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val parts:List<String> = getSupportFragmentManager().fragments[0].childFragmentManager.fragments[0].javaClass.name.split(".")
-        menu?.findItem(R.id.create_albums)?.setVisible(parts.last().equals("AlbumsFragment"))
+        menu?.findItem(R.id.create_albums)?.setVisible(parts.last().equals("AlbumFragment"))
         return true
     }
 

@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/albumsFragment"
-        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumsFragment"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/albums_fragment" >
+        tools:layout="@layout/album_fragment" >
         <action
             android:id="@+id/action_navigation_albums_to_navigation_create_album"
             app:destination="@id/navigation_create_album" />

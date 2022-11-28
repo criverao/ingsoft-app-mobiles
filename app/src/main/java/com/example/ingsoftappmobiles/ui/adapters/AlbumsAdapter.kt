@@ -11,7 +11,7 @@ import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumItemBinding
 import com.example.ingsoftappmobiles.models.Album
-//import com.example.ingsoftappmobiles.ui.albums.AlbumsFragmentDirections
+//import com.example.ingsoftappmobiles.ui.albums.AlbumFragmentDirections
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
@@ -44,7 +44,7 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
         }
         /*holder.viewDataBinding.root.setOnClickListener {
-            val action = AlbumsFragmentDirections.actionAlbumsFragmentToAlbumDetailFragment(albums[position].albumId)
+            val action = AlbumFragmentDirections.actionAlbumsFragmentToAlbumDetailFragment(albums[position].albumId)
             // Navigate using that action
             holder.viewDataBinding.root.findNavController().navigate(action)
         }*/
