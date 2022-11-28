@@ -2,6 +2,7 @@
     <string name="app_name">IngSoft App Mobiles</string>
     <string name="title_albums">Álbumes</string>
     <string name="title_album_detail_fragment">Detalles de Álbum</string>
+    <string name="title_artist_detail_fragment">Detalles de Artista</string>
     <string name="title_artists">Artistas</string>
     <string name="title_collectors">Coleccionistas</string>
     <string name="type_artist_band">Grupo</string>
@@ -20,5 +21,10 @@
     <string name="text_genre_label">Género:</string>
     <string name="text_record_label">Disquera:</string>
     <string name="text_album_description">Acerca del álbum</string>
+    <string name="fecha_creacion">Fecha de creación</string>
+    <string name="tipo_artista">Tipo de artista</string>
+    <string name="lanzamientos_title">Lanzamientos</string>
+    <string name="about_title">Acerca de la banda</string>
+    <string name="prizes_title">Premios</string>
 
 </resources>

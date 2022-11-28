@@ -53,6 +53,7 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
     override fun getItemCount(): Int {
         return albums.size
+        //return 1
     }
 
     class AlbumsViewHolder(val viewDataBinding: AlbumItemBinding) :

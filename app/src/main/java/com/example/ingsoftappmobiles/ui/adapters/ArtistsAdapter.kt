@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ArtistItemBinding
 
 import com.example.ingsoftappmobiles.models.Artist
+import com.example.ingsoftappmobiles.ui.artists.ArtistsFragmentDirections
 
 
 class ArtistsAdapter  : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
@@ -40,11 +42,11 @@ class ArtistsAdapter  : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
             }
 
         }
-/*        holder.viewDataBinding.root.setOnClickListener {
-            val action = ArtistFragmentDirections.actionArtistFragmentToCommentFragment(artists[position].artistId)
+        holder.viewDataBinding.root.setOnClickListener {
+            val action = ArtistsFragmentDirections.actionNavigationArtistToNavigationArtistDetail(artists[position].Id, artists[position].tipo)
             // Navigate using that action
             holder.viewDataBinding.root.findNavController().navigate(action)
-        }*/
+        }
     }
 
     override fun getItemCount(): Int {

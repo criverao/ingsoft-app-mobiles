@@ -6,6 +6,7 @@ data class Artist(
     val image: String,
     val description:String,
     val creationBrithDate:String,
-    val tipo:String
-
+    val tipo:String,
+    val albums: MutableList<Album>,
+    val prizes: MutableList<Prize>
 )
