@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/albumsFragment">
+    app:startDestination="@+id/navigation_albums">
 
     <fragment
-        android:id="@+id/albumsFragment"
-        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumsFragment"
+        android:id="@+id/navigation_albums"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/albums_fragment" >
+        tools:layout="@layout/album_fragment" >
         <action
             android:id="@+id/action_navigation_albums_to_navigation_create_album"
             app:destination="@id/navigation_create_album" />
         <action
-            android:id="@+id/action_albumsFragment_to_albumDetailFragment"
+            android:id="@+id/show_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
     </fragment>
 
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/albumDetailFragment"
         android:name="com.example.ingsoftappmobiles.ui.albums.AlbumDetailFragment"
-        android:label="album_detail_fragment"
+        android:label="@string/title_album_detail_fragment"
         tools:layout="@layout/album_detail_fragment" >
         <argument
             android:name="albumId"

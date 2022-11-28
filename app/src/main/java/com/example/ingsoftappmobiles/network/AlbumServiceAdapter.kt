@@ -64,8 +64,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     suspend fun getAlbum(albumId:Int) = suspendCoroutine { cont->
         requestQueue.add(getRequest("albums/$albumId",
             { response ->
-                val resp = JSONArray(response)
-                val item = resp.getJSONObject(0)
+                val item = JSONObject(response)
                 Log.d("Response", item.toString())
                 val album = AlbumDetail(
                     albumId = item.getInt("id"),

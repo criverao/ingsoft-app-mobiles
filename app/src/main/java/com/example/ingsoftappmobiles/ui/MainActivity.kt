@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.albumsFragment, R.id.navigation_artists, R.id.navigation_collectors
+                R.id.navigation_albums, R.id.navigation_artists, R.id.navigation_collectors
             )
         )
         //setSupportActionBar(findViewById(R.id.my_toolbar))
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val parts:List<String> = getSupportFragmentManager().fragments[0].childFragmentManager.fragments[0].javaClass.name.split(".")
-        menu?.findItem(R.id.create_albums)?.setVisible(parts.last().equals("AlbumsFragment"))
+        menu?.findItem(R.id.create_albums)?.setVisible(parts.last().equals("AlbumFragment"))
         return true
     }
 
