@@ -16,5 +16,9 @@
     <string name="title_create_album">Nuevo Album</string>
     <string name="selector_genero">Seleccione un Género</string>
     <string name="disquera">Casa Discrográfica</string>
+    <string name="text_release_date_label">Lanzamiento: </string>
+    <string name="text_genre_label">Género:</string>
+    <string name="text_record_label">Disquera:</string>
+    <string name="text_album_description">Acerca del álbum</string>
 
 </resources>
