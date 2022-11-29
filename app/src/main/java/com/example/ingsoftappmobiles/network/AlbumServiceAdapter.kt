@@ -73,14 +73,47 @@ class AlbumServiceAdapter constructor(context: Context) {
                     recordLabel = item.getString("recordLabel"),
                     releaseDate = item.getString("releaseDate"),
                     genre = item.getString("genre"),
-                    description = item.getString("description")
+                    description = item.getString("description"),
+                    tracks = mutableListOf<Track>(),
+                    comments = mutableListOf<Comment>(),
                 )
-
+                loadTracks(album, item)
+                loadComments(album, item)
                 cont.resume(album)
             },
             {
                 cont.resumeWithException(it)
             }))
+    }
+
+    private fun loadTracks(album: AlbumDetail, item:JSONObject){
+        val tracksJson = item.getJSONArray("tracks")
+
+        for (i in 0 until tracksJson.length()) {
+            val item = tracksJson.getJSONObject(i)
+            album.tracks.add(i,
+                Track(
+                    Id = item.getInt("id"),
+                    name = item.getString("name"),
+                    duration = item.getString("duration")
+                ))
+        }
+
+    }
+
+    private fun loadComments(album: AlbumDetail, item:JSONObject){
+        val tracksJson = item.getJSONArray("comments")
+
+        for (i in 0 until tracksJson.length()) {
+            val item = tracksJson.getJSONObject(i)
+            album.comments.add(i,
+                Comment(
+                    Id = item.getInt("id"),
+                    description = item.getString("description"),
+                    rating = item.getString("rating")
+                ))
+        }
+
     }
 
     fun postAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit) {

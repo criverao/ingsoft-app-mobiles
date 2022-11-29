@@ -52,7 +52,7 @@ class AlbumDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application, args.albumId))[AlbumDetailViewModel::class.java]
         viewModel.album.observe(viewLifecycleOwner) {
             it.apply {
-                viewModelAdapter!!.album = listOf(this)
+                viewModelAdapter!!.album = this
             }
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
