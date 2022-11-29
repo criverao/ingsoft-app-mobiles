@@ -2,15 +2,13 @@ package com.example.ingsoftappmobiles.repositories
 
 import android.app.Application
 import com.android.volley.VolleyError
+import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.Collector
+import com.example.ingsoftappmobiles.network.AlbumServiceAdapter
 import com.example.ingsoftappmobiles.network.CollectorServiceAdapter
 
 class CollectorsRepository(private val application: Application) {
-    fun refreshData(callback: (List<Collector>)->Unit, onError: (VolleyError)->Unit) {
-        CollectorServiceAdapter.getInstance(application).getCollectors({
-            callback(it)
-        },
-            onError
-        )
+    suspend fun refreshData(): List<Collector> {
+        return CollectorServiceAdapter.getInstance(application).getCollectors()
     }
 }

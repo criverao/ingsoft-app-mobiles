@@ -9,6 +9,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.Collector
 import org.json.JSONArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class CollectorServiceAdapter constructor(context: Context){
 
@@ -25,7 +28,8 @@ class CollectorServiceAdapter constructor(context: Context){
     private val requestQueue: RequestQueue by lazy {
         Volley.newRequestQueue(context.applicationContext)
     }
-    fun getCollectors(onComplete:(resp:List<Collector>)->Unit, onError: (error: VolleyError)->Unit){
+
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>>{ cont->
         requestQueue.add(getRequest("collectors",
             { response ->
                 val resp = JSONArray(response)
@@ -39,10 +43,10 @@ class CollectorServiceAdapter constructor(context: Context){
                         email = item.getString("email"))
                     )
                 }
-                onComplete(list)
+                cont.resume(list)
             },
             {
-                onError(it)
+                cont.resumeWithException(it)
             }))
     }
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
