@@ -3,8 +3,11 @@
     <string name="title_albums">Álbumes</string>
     <string name="title_album_detail_fragment">Detalles de Álbum</string>
     <string name="title_artist_detail_fragment">Detalles de Artista</string>
+    <string name="title_collector_detail_fragment">Detalles de Coleccionista</string>
     <string name="title_artists">Artistas</string>
     <string name="title_collectors">Coleccionistas</string>
+    <string name="title_collector_email_label">Email: </string>
+    <string name="title_collector_phone_label">Teléfono: </string>
     <string name="type_artist_band">Grupo</string>
     <string name="type_artist_musician">Solista</string>
     <string name="add_album">Crear</string>
