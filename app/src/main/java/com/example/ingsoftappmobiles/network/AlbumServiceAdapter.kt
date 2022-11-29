@@ -9,8 +9,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.ingsoftappmobiles.models.Album
-import com.example.ingsoftappmobiles.models.AlbumDetail
+import com.example.ingsoftappmobiles.models.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine

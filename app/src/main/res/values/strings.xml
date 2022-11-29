@@ -20,7 +20,10 @@
     <string name="text_release_date_label">Lanzamiento: </string>
     <string name="text_genre_label">Género:</string>
     <string name="text_record_label">Disquera:</string>
+    <string name="text_tracks_title">Canciones</string>
     <string name="text_album_description">Acerca del álbum</string>
+    <string name="text_comments_title">Comentarios</string>
+    <string name="text_comment_rating_label">Puntuación: </string>
     <string name="fecha_creacion">Fecha de creación</string>
     <string name="tipo_artista">Tipo de artista</string>
     <string name="lanzamientos_title">Lanzamientos</string>
