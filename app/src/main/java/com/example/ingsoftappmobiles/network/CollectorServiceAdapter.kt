@@ -61,8 +61,10 @@ class CollectorServiceAdapter constructor(context: Context){
                     name = item.getString("name"),
                     telephone = item.getString("telephone"),
                     email = item.getString("email"),
+                    albums = mutableListOf<CollectorAlbum>(),
                     musicians = mutableListOf<Musician>()
                 )
+                loadAlbums(collector, item)
                 loadMusicians(collector, item)
                 cont.resume(collector)
             },
@@ -88,28 +90,45 @@ class CollectorServiceAdapter constructor(context: Context){
 
     }
 
-    /*suspend fun getCollectorMusicians(collectorId:Int) = suspendCoroutine<List<Musician>>{ cont->
-        requestQueue.add(getRequest("collectors/$collectorId/performers",
+    private fun loadAlbums(collector: CollectorDetail, item:JSONObject){
+        val collectorAlbumsJson = item.getJSONArray("collectorAlbums")
+
+        for (i in 0 until collectorAlbumsJson.length()) {
+            val item = collectorAlbumsJson.getJSONObject(i)
+            collector.albums.add(i,
+                CollectorAlbum(
+                    collectorAlbumId = item.getInt("id"),
+                    price = item.getString("price"),
+                    status = item.getString("status"),
+                    albumName = "",
+                    albumGenre = "",
+                    albumCover = ""
+                ))
+        }
+
+    }
+
+    suspend fun getCollectorAlbum(collectorId:Int, albumId:Int) = suspendCoroutine<CollectorAlbum>{ cont->
+        requestQueue.add(getRequest("collectors/$collectorId/albums/$albumId/",
             { response ->
                 val resp = JSONArray(response)
-                val list = mutableListOf<Musician>()
-                for (i in 0 until resp.length()) {
-                    val item = resp.getJSONObject(i)
-                    val performer = Musician(
-                        Id = item.getInt("id"),
-                        name = item.getString("name"),
-                        image = item.getString("image"),
-                        description = item.getString("description"),
-                        birthDate = item.getString("birthday")
-                    )
-                    list.add(i, performer)
-                }
-                cont.resume(list)
+                val item = resp.getJSONObject(0)
+                Log.d("Response", item.toString())
+                val subitem = item.getJSONObject("album")
+                val collectorAlbum = CollectorAlbum(
+                    collectorAlbumId = item.getInt("id"),
+                    price = item.getString("price"),
+                    status = item.getString("status"),
+                    albumName = subitem.getString("name"),
+                    albumGenre = subitem.getString("genre"),
+                    albumCover = subitem.getString("cover")
+                )
+                cont.resume(collectorAlbum)
             },
             {
                 cont.resumeWithException(it)
             }))
-    }*/
+    }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL +path, responseListener, errorListener)

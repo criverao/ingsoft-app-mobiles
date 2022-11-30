@@ -46,10 +46,21 @@ class CollectorDetailAdapter : RecyclerView.Adapter<CollectorDetailAdapter.Colle
 
             val musicianAdapter = CollectorMusicianAdapter()
             musicianAdapter.musicians = collector?.musicians ?: musicianAdapter.musicians
-
             it.collectorMusicianRecyclerView.layoutManager = layoutManagerMusicians
             it.collectorMusicianRecyclerView.adapter = musicianAdapter
             it.collectorMusicianRecyclerView.setRecycledViewPool(viewPool)
+
+            val layoutManagerAlbums = LinearLayoutManager(
+                it.collectorAlbumRecyclerView.context,
+                LinearLayoutManager.VERTICAL, false
+            )
+            layoutManagerAlbums.initialPrefetchItemCount = collector?.albums?.count() ?: 0
+
+            val albumsAdapter = CollectorAlbumAdapter()
+            albumsAdapter.albums = collector?.albums?: albumsAdapter.albums
+            it.collectorAlbumRecyclerView.layoutManager = layoutManagerAlbums
+            it.collectorAlbumRecyclerView.adapter = albumsAdapter
+            it.collectorAlbumRecyclerView.setRecycledViewPool(viewPool)
         }
 
     }

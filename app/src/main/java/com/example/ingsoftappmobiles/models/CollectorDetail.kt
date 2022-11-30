@@ -5,5 +5,6 @@ data class CollectorDetail(
     val name: String,
     val telephone: String,
     val email: String,
+    val albums: MutableList<CollectorAlbum>,
     val musicians: MutableList<Musician>
 )
