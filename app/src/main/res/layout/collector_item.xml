@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        android:layout_marginBottom="8dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -28,40 +29,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp">
 
-                <ImageView
-                    android:id="@+id/image_cover"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginStart="16dp"
-                    android:contentDescription="@{collector.name}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:text="@{collector.name}"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@{collector.email}" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@{collector.telephone}" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{collector.name}" />
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{collector.email}" />
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{collector.telephone}" />
-
-                </LinearLayout>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

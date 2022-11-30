@@ -47,12 +47,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_collectors"
-        android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorFragment"
-        android:label="@string/title_collectors"
-        tools:layout="@layout/fragment_collectors" />
-
-    <fragment
         android:id="@+id/navigation_artist_detail"
         android:name="com.example.ingsoftappmobiles.ui.artists.ArtistDetailFragment"
         android:label="@string/title_artist_detail_fragment"
@@ -65,6 +59,26 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_collectors"
+        android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorFragment"
+        android:label="@string/title_collectors"
+        tools:layout="@layout/fragment_collectors">
 
+        <action
+            android:id="@+id/show_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorDetailFragment"
+        android:label="@string/title_collector_detail_fragment"
+        tools:layout="@layout/collector_detail_fragment" >
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

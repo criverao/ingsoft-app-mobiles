@@ -2,20 +2,22 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Collector
-import com.example.ingsoftappmobiles.repositories.CollectorsRepository
+import com.example.ingsoftappmobiles.models.CollectorDetail
+import com.example.ingsoftappmobiles.repositories.CollectorAlbumRepository
+import com.example.ingsoftappmobiles.repositories.CollectorDetailRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
+class CollectorDetailViewModel(application: Application, collectorId: Int) : AndroidViewModel(application) {
 
-    private val collectorsRepository = CollectorsRepository(application)
+    private val collectorAlbumRepository = CollectorAlbumRepository(application)
+    private val collectorDetailRepository = CollectorDetailRepository(application, collectorAlbumRepository)
 
-    private val _collectors = MutableLiveData<List<Collector>>()
+    private val _collector = MutableLiveData<CollectorDetail>()
 
-    val collectors: LiveData<List<Collector>>
-        get() = _collectors
+    val collector: LiveData<CollectorDetail>
+        get() = _collector
 
     private var _eventNetworkError = MutableLiveData(false)
 
@@ -27,6 +29,8 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
+    val id:Int = collectorId
+
     init {
         refreshDataFromNetwork()
     }
@@ -35,8 +39,8 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
         try {
             viewModelScope.launch(Dispatchers.Default){
                 withContext(Dispatchers.IO){
-                    val data = collectorsRepository.refreshData()
-                    _collectors.postValue(data)
+                    val data = collectorDetailRepository.refreshData(id)
+                    _collector.postValue(data)
                 }
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)
@@ -51,13 +55,14 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
         _isNetworkErrorShown.value = true
     }
 
-    class Factory(val app: Application) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val collectorId: Int) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(CollectorViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(CollectorDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return CollectorViewModel(app) as T
+                return CollectorDetailViewModel(app, collectorId) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
+
 }

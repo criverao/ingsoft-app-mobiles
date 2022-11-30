@@ -39,7 +39,6 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
             it.albumDetail = album
             album?.releaseDate = album?.releaseDate?.substring(0..3).toString()
 
-            it.albumDetail = album
             album?.cover?.let { urlImagen ->
                 val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
                 it.imageCover.load(imgUri)
@@ -61,7 +60,7 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
                 it.albumTrackRecyclerView.context,
                 LinearLayoutManager.VERTICAL, false
             )
-            layoutManagerComments.initialPrefetchItemCount = album?.tracks?.count() ?: 0
+            layoutManagerComments.initialPrefetchItemCount = album?.comments?.count() ?: 0
 
             val commentsAdapter = CommentsAdapter()
             commentsAdapter.comments = album?.comments ?: commentsAdapter.comments
