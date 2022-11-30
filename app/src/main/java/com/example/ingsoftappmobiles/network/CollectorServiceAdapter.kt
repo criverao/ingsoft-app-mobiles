@@ -61,13 +61,56 @@ class CollectorServiceAdapter constructor(context: Context){
                     name = item.getString("name"),
                     telephone = item.getString("telephone"),
                     email = item.getString("email"),
+                    musicians = mutableListOf<Musician>()
                 )
+                loadMusicians(collector, item)
                 cont.resume(collector)
             },
             {
                 cont.resumeWithException(it)
             }))
     }
+
+    private fun loadMusicians(collector: CollectorDetail, item:JSONObject){
+        val tracksJson = item.getJSONArray("favoritePerformers")
+
+        for (i in 0 until tracksJson.length()) {
+            val item = tracksJson.getJSONObject(i)
+            collector.musicians.add(i,
+                Musician(
+                    Id = item.getInt("id"),
+                    name = item.getString("name"),
+                    image = item.getString("image"),
+                    description = item.getString("description"),
+                    birthDate = item.getString("birthDate")
+                ))
+        }
+
+    }
+
+    /*suspend fun getCollectorMusicians(collectorId:Int) = suspendCoroutine<List<Musician>>{ cont->
+        requestQueue.add(getRequest("collectors/$collectorId/performers",
+            { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Musician>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    val performer = Musician(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        birthDate = item.getString("birthday")
+                    )
+                    list.add(i, performer)
+                }
+                cont.resume(list)
+            },
+            {
+                cont.resumeWithException(it)
+            }))
+    }*/
+
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL +path, responseListener, errorListener)
     }
