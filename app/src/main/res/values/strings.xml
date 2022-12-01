@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">IngSoft App Mobiles</string>
     <string name="title_albums">Álbumes</string>
+    <string name="title_album">Álbum</string>
     <string name="title_album_detail_fragment">Detalles de Álbum</string>
     <string name="title_artist_detail_fragment">Detalles de Artista</string>
     <string name="title_collector_detail_fragment">Detalles de Coleccionista</string>
