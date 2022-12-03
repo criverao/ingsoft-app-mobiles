@@ -10,6 +10,7 @@ tools:context=".ui.collectors.CollectorDetailFragment">
     android:id="@+id/CollectorDetailRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
     tools:listitem="@layout/collector_detail"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

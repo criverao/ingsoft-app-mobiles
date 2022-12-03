@@ -84,7 +84,7 @@ class CollectorServiceAdapter constructor(context: Context){
                     name = item.getString("name"),
                     image = item.getString("image"),
                     description = item.getString("description"),
-                    birthDate = item.getString("birthDate")
+                    birthDate = ""
                 ))
         }
 

@@ -34,8 +34,8 @@
     <string name="text_album_description">Acerca del álbum</string>
     <string name="text_comments_title">Comentarios</string>
     <string name="text_comment_rating_label">Puntuación: </string>
-    <string name="fecha_creacion">Fecha de creación</string>
-    <string name="tipo_artista">Tipo de artista</string>
+    <string name="fecha_creacion">Fecha de creación: </string>
+    <string name="tipo_artista">Tipo de artista: </string>
     <string name="lanzamientos_title">Lanzamientos</string>
     <string name="about_title">Acerca de la banda</string>
     <string name="prizes_title">Premios</string>

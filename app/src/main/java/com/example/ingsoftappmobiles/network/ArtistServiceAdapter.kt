@@ -72,7 +72,16 @@ class ArtistServiceAdapter constructor(context: Context) {
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Artist(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), creationBrithDate = item.getString("birthDate"), tipo="Solista", albums=mutableListOf<Album>(), prizes = mutableListOf<Prize>()))
+                    list.add(i, Artist(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        shortName = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        creationBrithDate = item.getString("birthDate"),
+                        tipo="Solista",
+                        albums=mutableListOf<Album>(),
+                        prizes = mutableListOf<Prize>()))
                 }
                 onComplete(list)
             },
@@ -88,7 +97,16 @@ class ArtistServiceAdapter constructor(context: Context) {
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Artist(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), creationBrithDate = item.getString("creationDate"), tipo = "Banda", albums = mutableListOf<Album>(), prizes = mutableListOf<Prize>()))
+                    list.add(i, Artist(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        shortName = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        creationBrithDate = item.getString("creationDate"),
+                        tipo = "Banda",
+                        albums = mutableListOf<Album>(),
+                        prizes = mutableListOf<Prize>()))
                 }
                 onComplete(list)
             },
@@ -105,10 +123,12 @@ class ArtistServiceAdapter constructor(context: Context) {
                 val artist = Artist(
                     Id = item.getInt("id"),
                     name = item.getString("name"),
+                    shortName = item.getString("name"),
                     image = item.getString("image"),
                     description = item.getString("description"),
                     creationBrithDate = item.getString("creationDate").substring(0..9),
-                    tipo = "Banda", mutableListOf<Album>(),
+                    tipo = "Banda",
+                    mutableListOf<Album>(),
                     prizes = mutableListOf<Prize>()
                 )
 
@@ -131,6 +151,7 @@ class ArtistServiceAdapter constructor(context: Context) {
                 val artist = Artist(
                     Id = item.getInt("id"),
                     name = item.getString("name"),
+                    shortName = item.getString("name"),
                     image = item.getString("image"),
                     description = item.getString("description"),
                     creationBrithDate = item.getString("birthDate").substring(0..9),

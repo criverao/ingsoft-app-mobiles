@@ -34,7 +34,14 @@ class CollectorMusicianAdapter : RecyclerView.Adapter<CollectorMusicianAdapter.C
         holder.viewDataBinding.also {
             it.musician = musicians[position]
 
-            musicians[position].description = musicians[position].description.substring(0..60)
+            val descriptionLength = musicians[position].description.length
+            val maxLength = 97
+
+            if (descriptionLength > maxLength) {
+                musicians[position].description = musicians[position].description.substring(0..maxLength) + "..."
+            } else {
+                musicians[position].description = musicians[position].description
+            }
 
             musicians[position].image.let { urlImagen ->
                 val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()

@@ -49,8 +49,8 @@ class AlbumServiceAdapter constructor(context: Context) {
                         releaseDate = item.getString("releaseDate"),
                         genre = item.getString("genre"),
                         description = item.getString("description"),
-                        releaseYear = item.getString("releaseDate").substring(0..3),
-                        excerpt = item.getString("description").substring(0..5) + "...")
+                        releaseYear = item.getString("releaseDate"),
+                        excerpt = item.getString("description"))
                     list.add(i, album) // se agrega a medida que se procesa la respuesta
                 }
                 cont.resume(list)

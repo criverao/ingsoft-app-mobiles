@@ -34,8 +34,16 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            //albums[position].releaseYear = albums[position].releaseDate.substring(0..3)
-            //albums[position].excerpt = albums[position].description.substring(0..56) + "..."
+            albums[position].releaseYear = albums[position].releaseDate.substring(0..3)
+
+            val descriptionLength = albums[position].description.length
+            val maxLength = 57
+
+            if (descriptionLength > maxLength) {
+                albums[position].excerpt = albums[position].description.substring(0..maxLength) + "..."
+            } else {
+                albums[position].excerpt = albums[position].description
+            }
 
             it.album = albums[position]
             albums[position].cover.let { urlImagen ->

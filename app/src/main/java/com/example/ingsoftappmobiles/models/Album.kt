@@ -8,6 +8,6 @@ data class Album(
     val description:String,
     val genre:String,
     val recordLabel:String,
-    val releaseYear:String,
-    val excerpt:String
+    var releaseYear:String,
+    var excerpt:String
 )

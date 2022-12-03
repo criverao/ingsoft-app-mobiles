@@ -41,6 +41,15 @@ class ArtistsAdapter  : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>(){
                 it.imageView.load(imgUri)
             }
 
+            val nameLength = artists[position].name.length
+            val maxLength = 16
+
+            if (nameLength > maxLength) {
+                artists[position].shortName = artists[position].name.substring(0..maxLength) + "..."
+            } else {
+                artists[position].shortName = artists[position].name
+            }
+
         }
         holder.viewDataBinding.root.setOnClickListener {
             val action = ArtistsFragmentDirections.actionNavigationArtistToNavigationArtistDetail(artists[position].Id, artists[position].tipo)
