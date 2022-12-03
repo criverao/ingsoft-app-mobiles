@@ -29,45 +29,59 @@ class ArtistServiceAdapter constructor(context: Context) {
     }
 
     private val requestQueue: RequestQueue by lazy {
-        // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
     }
-    fun getMusicians(onComplete:(resp:List<Musician>)->Unit, onError: (error:VolleyError)->Unit){
+
+    suspend fun getMusicians() = suspendCoroutine<List<Musician>>{ cont->
         requestQueue.add(getRequest("musicians",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Musician>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Musician(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), birthDate = item.getString("birthDate")))
+                    list.add(i, Musician(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        birthDate = item.getString("birthDate"))
+                    )
                 }
-                onComplete(list)
+                cont.resume(list)
             },
-            Response.ErrorListener {
-                onError(it)
-            }))
+            {
+                cont.resumeWithException(it)
+            })
+        )
     }
 
-    fun getBands(onComplete:(resp:List<Band>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getBands() = suspendCoroutine<List<Band>>{ cont->
         requestQueue.add(getRequest("bands",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Band>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Band(Id = item.getInt("id"),name = item.getString("name"), image = item.getString("image"), description = item.getString("description"), creationDate = item.getString("creationDate")))
+                    list.add(i, Band(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        creationDate = item.getString("creationDate"))
+                    )
                 }
-                onComplete(list)
+                cont.resume(list)
             },
-            Response.ErrorListener {
-                onError(it)
-            }))
+            {
+                cont.resumeWithException(it)
+            })
+        )
     }
 
 
-    fun getMusiciansOnArtist(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getMusiciansOnArtist() = suspendCoroutine<List<Artist>>{ cont->
         requestQueue.add(getRequest("musicians",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
@@ -83,16 +97,17 @@ class ArtistServiceAdapter constructor(context: Context) {
                         albums=mutableListOf<Album>(),
                         prizes = mutableListOf<Prize>()))
                 }
-                onComplete(list)
+                cont.resume(list)
             },
-            Response.ErrorListener {
-                onError(it)
-            }))
+            {
+                cont.resumeWithException(it)
+            })
+        )
     }
 
-    fun getBandsOnArtist(onComplete:(resp:List<Artist>)->Unit, onError: (error:VolleyError)->Unit){
+    suspend fun getBandsOnArtist() = suspendCoroutine<List<Artist>>{ cont->
         requestQueue.add(getRequest("bands",
-            Response.Listener<String> { response ->
+            { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
@@ -108,11 +123,12 @@ class ArtistServiceAdapter constructor(context: Context) {
                         albums = mutableListOf<Album>(),
                         prizes = mutableListOf<Prize>()))
                 }
-                onComplete(list)
+                cont.resume(list)
             },
-            Response.ErrorListener {
-                onError(it)
-            }))
+            {
+                cont.resumeWithException(it)
+            })
+        )
     }
 
     suspend fun getBand(bandId:Int) = suspendCoroutine { cont->

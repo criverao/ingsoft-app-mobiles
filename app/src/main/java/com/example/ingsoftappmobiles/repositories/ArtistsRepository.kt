@@ -6,21 +6,12 @@ import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
 class ArtistsRepository (val application: Application) {
-    fun refreshData(callbackMusician: (List<Artist>)->Unit, callbackBand: (List<Artist>)->Unit, onError: (VolleyError)->Unit) {
-        //Determinar la fuente de datos que se va a utilizar. Si es necesario consultar la red, ejecutar el siguiente código
-        ArtistServiceAdapter.getInstance(application).getMusiciansOnArtist({
-            //Guardar los artistes de la variable it en un almacén de datos local para uso futuro
-            callbackMusician(it)
-        },
-            onError
-        )
+    suspend fun refreshData() : List<Artist> {
+        var artists: List<Artist> = ArtistServiceAdapter.getInstance(application).getMusiciansOnArtist()
 
-        ArtistServiceAdapter.getInstance(application).getBandsOnArtist({
-            //Guardar los artistes de la variable it en un almacén de datos local para uso futuro
-            callbackBand(it)
-        },
-            onError
-        )
+        val bands = ArtistServiceAdapter.getInstance(application).getBandsOnArtist()
+
+        return artists + bands
 
     }
 }
