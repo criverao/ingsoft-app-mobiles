@@ -26,8 +26,7 @@
                 android:layout_margin="8dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@{musician.name}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"

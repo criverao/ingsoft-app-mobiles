@@ -26,8 +26,7 @@
                 android:layout_margin="8dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@{collectorAlbum.albumCover}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:id="@+id/layout_detail_collector_album"

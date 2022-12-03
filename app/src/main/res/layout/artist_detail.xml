@@ -34,8 +34,7 @@
                     android:layout_margin="8dp"
                     android:layout_gravity="center"
                     android:contentDescription="@{artist.name}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
