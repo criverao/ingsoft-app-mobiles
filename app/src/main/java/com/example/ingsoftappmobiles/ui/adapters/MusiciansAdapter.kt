@@ -3,10 +3,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.MusicianItemBinding
 
@@ -34,23 +32,13 @@ class MusiciansAdapter  : RecyclerView.Adapter<MusiciansAdapter.MusicianViewHold
     override fun onBindViewHolder(holder: MusicianViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.musician = musicians[position]
-            musicians[position].image.let { urlImagen ->
-                val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
-                it.imageView.load(imgUri)
-            }
-
         }
-/*        holder.viewDataBinding.root.setOnClickListener {
-            val action = MusicianFragmentDirections.actionMusicianFragmentToCommentFragment(musicians[position].musicianId)
-            // Navigate using that action
-            holder.viewDataBinding.root.findNavController().navigate(action)
-        }*/
+
     }
 
     override fun getItemCount(): Int {
         return musicians.size
     }
-
 
     class MusicianViewHolder(val viewDataBinding: MusicianItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
@@ -59,7 +47,6 @@ class MusiciansAdapter  : RecyclerView.Adapter<MusiciansAdapter.MusicianViewHold
             val LAYOUT = R.layout.musician_item
         }
     }
-
 
 }
 

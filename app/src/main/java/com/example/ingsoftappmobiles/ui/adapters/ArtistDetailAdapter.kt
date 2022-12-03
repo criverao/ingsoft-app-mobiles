@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import androidx.cardview.widget.CardView
 import androidx.core.net.toUri
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ArtistDetailBinding
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.Artist
-import com.example.ingsoftappmobiles.ui.artists.ArtistsFragmentDirections
 
 class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetailViewHolder>(){
 
@@ -42,12 +39,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
 
         holder.viewDataBinding.also {
             it.artist = artist
-            artist?.image.let { urlImagen ->
-                val imgUri = urlImagen?.toUri()?.buildUpon()?.scheme("https")?.build()
-                it.imageCoverDetail.load(imgUri)
 
-
-            }
             val layoutManager = LinearLayoutManager(it.artistDetailAlbumsRv.context,
                 LinearLayoutManager.VERTICAL, false)
             layoutManager.initialPrefetchItemCount = artist?.albums?.count() ?: 0
@@ -58,7 +50,6 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
             it.artistDetailAlbumsRv.layoutManager = layoutManager
             it.artistDetailAlbumsRv.adapter = albumsAdapter
             it.artistDetailAlbumsRv.setRecycledViewPool(viewPool)
-
 
             val layoutManager2 = LinearLayoutManager(it.artistDetailPrizesRv.context,
                 LinearLayoutManager.VERTICAL, false)
@@ -71,20 +62,28 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
             it.artistDetailPrizesRv.adapter = prizesAdapter
             it.artistDetailPrizesRv.setRecycledViewPool(viewPool)
 
-
         }
-
+        artist?.let { holder.bind(it) }
 
     }
 
     class ArtistDetailViewHolder(val viewDataBinding: ArtistDetailBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root!!) {
+        RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.artist_detail
+        }
 
-
-
+        fun bind(artist: Artist) {
+            Glide.with(itemView)
+                .load(artist.image.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                )
+                .into(viewDataBinding.imageCoverDetail)
         }
     }
 

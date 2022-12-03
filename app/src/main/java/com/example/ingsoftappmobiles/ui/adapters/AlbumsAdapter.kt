@@ -8,7 +8,9 @@ import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumItemBinding
 import com.example.ingsoftappmobiles.models.Album
@@ -34,6 +36,8 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
 
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {
         holder.viewDataBinding.also {
+            it.album = albums[position]
+
             albums[position].releaseYear = albums[position].releaseDate.substring(0..3)
 
             val descriptionLength = albums[position].description.length
@@ -45,23 +49,16 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
                 albums[position].excerpt = albums[position].description
             }
 
-            it.album = albums[position]
-            albums[position].cover.let { urlImagen ->
-                val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
-                it.imageCover.load(imgUri)
-            }
-
         }
+        holder.bind(albums[position])
         holder.viewDataBinding.root.setOnClickListener {
             val action = AlbumFragmentDirections.showAlbumDetailFragment(albums[position].albumId)
-            // Navigate using that action
             holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
 
     override fun getItemCount(): Int {
         return albums.size
-        //return 1
     }
 
     class AlbumsViewHolder(val viewDataBinding: AlbumItemBinding) :
@@ -70,5 +67,18 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>(){
             @LayoutRes
             val LAYOUT = R.layout.album_item
         }
+
+        fun bind(album: Album) {
+            Glide.with(itemView)
+                .load(album.cover.toUri().buildUpon().scheme("https").build())
+                .apply(
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                )
+                .into(viewDataBinding.imageCover)
+        }
+
     }
 }
