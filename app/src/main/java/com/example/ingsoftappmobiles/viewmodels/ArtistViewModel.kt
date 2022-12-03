@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.repositories.ArtistsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
@@ -29,19 +32,19 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
     }
 
     private fun refreshDataFromNetwork() {
-        artistsRepository.refreshData({
-            _artists.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },
-            {
-            _artists.value = _artists.value.orEmpty() + it
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    val data = artistsRepository.refreshData()
+                    _artists.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
             _eventNetworkError.value = true
         }
-        )
 
     }
 
