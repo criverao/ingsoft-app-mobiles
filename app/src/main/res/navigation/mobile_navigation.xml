@@ -30,10 +30,25 @@
         android:name="com.example.ingsoftappmobiles.ui.albums.AlbumDetailFragment"
         android:label="@string/title_album_detail_fragment"
         tools:layout="@layout/album_detail_fragment" >
+        <action
+            android:id="@+id/show_createTrackFragment"
+            app:destination="@id/navigation_create_track" />
         <argument
             android:name="albumId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_track"
+        android:name="com.example.ingsoftappmobiles.ui.albums.CreateTrackFragment"
+        android:label="@string/title_create_track"
+        tools:layout="@layout/album_track_create" >
+
+        <argument
+            android:name="albumId"
+            app:argType="integer" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_artists"

@@ -137,6 +137,24 @@ class AlbumServiceAdapter constructor(context: Context) {
             }))
     }
 
+    fun postTrack(track: Track, onComplete:(resp:Track)->Unit, onError: (error:VolleyError)->Unit) {
+        var gson = Gson()
+
+        val postParams = mapOf(
+            "name" to track.name,
+            "duration" to track.duration
+        )
+        Log.d("TAG", JSONObject(postParams).toString())
+        requestQueue.add(postRequest("albums/" + track.Id + "/tracks",
+            JSONObject(postParams),
+            { response ->
+                onComplete(gson.fromJson(response.toString(), Track::class.java))
+            },
+            {
+                onError(it)
+            }))
+    }
+
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener, errorListener)
     }

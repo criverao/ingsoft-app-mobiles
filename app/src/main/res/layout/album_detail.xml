@@ -117,21 +117,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_tracks_title"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/text_tracks_title"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_tracks_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center|center_vertical"
+                        android:text="@string/text_tracks_title"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <!--<Button
+                        android:id="@+id/create_track_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="100dp"
+                        android:text="@string/create_track_button_label"
+                        app:icon="@drawable/ic_baseline_add_circle_24"
+                        app:layout_constraintStart_toEndOf="@id/text_tracks_title" />-->
+
+                </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/albumTrackRecyclerView"
@@ -141,7 +158,7 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
