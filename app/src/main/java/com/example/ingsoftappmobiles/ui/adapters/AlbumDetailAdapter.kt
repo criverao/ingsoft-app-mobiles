@@ -8,7 +8,9 @@ import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumDetailBinding
 import com.example.ingsoftappmobiles.models.AlbumDetail
@@ -39,11 +41,6 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
             it.albumDetail = album
             album?.releaseDate = album?.releaseDate?.substring(0..3).toString()
 
-            album?.cover?.let { urlImagen ->
-                val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
-                it.imageCover.load(imgUri)
-            }
-
             val layoutManagerTracks = LinearLayoutManager(
                 it.albumTrackRecyclerView.context,
                 LinearLayoutManager.VERTICAL, false
@@ -69,7 +66,7 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
             it.albumCommentRecyclerView.setRecycledViewPool(viewPool)
 
         }
-
+        album?.let { holder.bind(it) }
     }
 
     class AlbumDetailViewHolder(val viewDataBinding: AlbumDetailBinding?) :
@@ -77,6 +74,19 @@ class AlbumDetailAdapter : RecyclerView.Adapter<AlbumDetailAdapter.AlbumDetailVi
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.album_detail
+        }
+
+        fun bind(album: AlbumDetail) {
+            viewDataBinding?.let {
+                Glide.with(itemView)
+                    .load(album.cover.toUri().buildUpon().scheme("https").build())
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image))
+                    .into(it.imageCover)
+            }
         }
     }
 
