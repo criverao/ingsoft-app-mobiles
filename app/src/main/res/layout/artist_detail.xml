@@ -54,7 +54,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_weight="0.5"
                         android:textAppearance="?attr/textAppearanceListItem"
-                        android:text="@string/fecha_creacion" />
+                        android:text="@string/fecha_creacion_nacimiento" />
                     <TextView
                         android:id="@+id/text_release_date"
                         android:layout_width="0dp"

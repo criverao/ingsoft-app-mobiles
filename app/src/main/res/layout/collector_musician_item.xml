@@ -30,7 +30,7 @@
                 app:srcCompat="@mipmap/ic_launcher" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -55,17 +55,8 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
                     android:background="@color/cardview_dark_background" />
-            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/favorite_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="12dp"
-                android:baselineAlignBottom="true"
-                android:contentDescription="TODO"
-                android:src="@drawable/ic_baseline_favorite_24"
-                app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
 
         </LinearLayout>
 
