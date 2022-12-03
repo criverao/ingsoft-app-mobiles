@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.AlbumDetailFragmentBinding
 import com.example.ingsoftappmobiles.ui.adapters.AlbumDetailAdapter
 import com.example.ingsoftappmobiles.viewmodels.AlbumDetailViewModel
@@ -57,6 +57,11 @@ class AlbumDetailFragment : Fragment() {
         }
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
+        }
+
+        binding.createTrackButton.setOnClickListener {
+            val action = AlbumDetailFragmentDirections.showCreateTrackFragment(args.albumId)
+            findNavController().navigate(action)
         }
 
     }
