@@ -51,7 +51,7 @@ class CreateTrackFragment : Fragment() {
 
         _binding?.trackCreateButton?.setOnClickListener {
 
-            val nameTxt : TextInputEditText? = _binding?.textTrackName
+            val nameTxt : EditText? = _binding?.textTrackName
             val minutesTxt : NumberPicker? = _binding?.numberPickerTrackMinutes
             val secondsTxt : NumberPicker? = _binding?.numberPickerTrackSeconds
 
