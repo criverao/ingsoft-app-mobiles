@@ -1,16 +1,13 @@
 package com.example.ingsoftappmobiles.repositories
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import com.example.ingsoftappmobiles.models.AlbumDetail
-import com.example.ingsoftappmobiles.models.Artist
+import com.example.ingsoftappmobiles.models.ArtistDetail
 import com.example.ingsoftappmobiles.models.Prize
-import com.example.ingsoftappmobiles.network.AlbumServiceAdapter
 import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
 class ArtistDetailRepository (private val application: Application, private val prizeRepository: PrizeRepository){
-    suspend fun refreshData(artistId: Int, tipo: String): Artist {
-        var artist:Artist
+    suspend fun refreshData(artistId: Int, tipo: String): ArtistDetail {
+        var artist:ArtistDetail
         if (tipo.equals("Banda")){
             artist = ArtistServiceAdapter.getInstance(application).getBand(artistId)
         }

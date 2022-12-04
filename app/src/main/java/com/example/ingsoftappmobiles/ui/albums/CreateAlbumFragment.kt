@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.example.ingsoftappmobiles.database.dao.VinylRoomDatabase
 import com.example.ingsoftappmobiles.databinding.AlbumCreateBinding
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
@@ -99,7 +100,10 @@ class CreateAlbumFragment : Fragment() {
                 descTxt?.text.toString(),genreTxt?.text.toString(),discTxt?.text.toString(),
                 year.toString(), " ")
 
-            albumsRepository = AlbumsRepository(activity.application)
+            albumsRepository = AlbumsRepository(
+                activity.application,
+                VinylRoomDatabase.getDatabase(activity.applicationContext).albumsDao()
+            )
             albumsRepository.createAlbum(album,{
                 Toast.makeText(context, "El album fue creado con éxito", Toast.LENGTH_SHORT).show()
                 NavHostFragment.findNavController(this@CreateAlbumFragment).navigateUp()

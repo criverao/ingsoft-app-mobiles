@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ArtistDetailFragmentBinding
-import com.example.ingsoftappmobiles.ui.adapters.AlbumsAdapter
 import com.example.ingsoftappmobiles.ui.adapters.ArtistDetailAdapter
 import com.example.ingsoftappmobiles.viewmodels.ArtistDetailViewModel
 
@@ -51,7 +50,7 @@ class ArtistDetailFragment : Fragment() {
         Log.d("Args", args.artistId.toString())
         Log.d("Args", args.tipo.toString())
 
-        viewModel = ViewModelProvider(this, ArtistDetailViewModel.Factory(activity.application, args.artistId, args.tipo)).get(ArtistDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, ArtistDetailViewModel.Factory(activity.application, args.artistId, args.tipo))[ArtistDetailViewModel::class.java]
         viewModel.artist.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.artist = this

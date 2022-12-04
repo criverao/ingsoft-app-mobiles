@@ -2,7 +2,7 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.ingsoftappmobiles.models.Artist
+import com.example.ingsoftappmobiles.models.ArtistDetail
 import com.example.ingsoftappmobiles.repositories.ArtistDetailRepository
 import com.example.ingsoftappmobiles.repositories.PrizeRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +15,9 @@ class ArtistDetailViewModel(application: Application, artistId: Int, tipo:String
     private val artistDetailRepository = ArtistDetailRepository(application, prizeRepository)
 
 
-    private val _artist = MutableLiveData<Artist>()
+    private val _artist = MutableLiveData<ArtistDetail>()
 
-    val artist: LiveData<Artist>
+    val artist: LiveData<ArtistDetail>
         get() = _artist
 
     private var _eventNetworkError = MutableLiveData(false)
@@ -57,7 +57,7 @@ class ArtistDetailViewModel(application: Application, artistId: Int, tipo:String
         _isNetworkErrorShown.value = true
     }
 
-    class Factory(val app: Application, val artistId: Int, val tipo: String) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val artistId: Int, val tipo: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ArtistDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

@@ -2,6 +2,7 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.ingsoftappmobiles.database.dao.VinylRoomDatabase
 import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.repositories.ArtistsRepository
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,10 @@ import kotlinx.coroutines.withContext
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
-    private val artistsRepository = ArtistsRepository(application)
+    private val artistsRepository = ArtistsRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao()
+    )
 
     private val _artists = MutableLiveData<List<Artist>>()
 
