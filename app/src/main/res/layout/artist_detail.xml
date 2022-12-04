@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="artist" type="com.example.ingsoftappmobiles.models.Artist"/>
+        <variable name="artist" type="com.example.ingsoftappmobiles.models.ArtistDetail"/>
     </data>
 
     <LinearLayout

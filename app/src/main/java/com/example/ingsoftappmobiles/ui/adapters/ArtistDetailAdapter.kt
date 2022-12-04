@@ -13,11 +13,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ArtistDetailBinding
-import com.example.ingsoftappmobiles.models.Artist
+import com.example.ingsoftappmobiles.models.ArtistDetail
 
 class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetailViewHolder>(){
 
-    var artist : Artist? = null
+    var artist : ArtistDetail? = null
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -74,7 +74,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
             val LAYOUT = R.layout.artist_detail
         }
 
-        fun bind(artist: Artist) {
+        fun bind(artist: ArtistDetail) {
             Glide.with(itemView)
                 .load(artist.image.toUri().buildUpon().scheme("https").build())
                 .apply(

@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.*
+import com.example.ingsoftappmobiles.ui.adapters.ArtistDetailAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -79,14 +80,14 @@ class ArtistServiceAdapter constructor(context: Context) {
     }
 
 
-    suspend fun getMusiciansOnArtist() = suspendCoroutine<List<Artist>>{ cont->
+    suspend fun getMusiciansOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("musicians",
             { response ->
                 val resp = JSONArray(response)
-                val list = mutableListOf<Artist>()
+                val list = mutableListOf<ArtistDetail>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Artist(
+                    list.add(i, ArtistDetail(
                         Id = item.getInt("id"),
                         name = item.getString("name"),
                         shortName = item.getString("name"),
@@ -105,14 +106,36 @@ class ArtistServiceAdapter constructor(context: Context) {
         )
     }
 
-    suspend fun getBandsOnArtist() = suspendCoroutine<List<Artist>>{ cont->
-        requestQueue.add(getRequest("bands",
+    suspend fun getMusiciansArtists() = suspendCoroutine<List<Artist>>{ cont->
+        requestQueue.add(getRequest("musicians",
             { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Artist>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
                     list.add(i, Artist(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        shortName = item.getString("name"),
+                        image = item.getString("image"),
+                        tipo="Solista"))
+                }
+                cont.resume(list)
+            },
+            {
+                cont.resumeWithException(it)
+            })
+        )
+    }
+
+    suspend fun getBandsOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
+        requestQueue.add(getRequest("bands",
+            { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<ArtistDetail>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, ArtistDetail(
                         Id = item.getInt("id"),
                         name = item.getString("name"),
                         shortName = item.getString("name"),
@@ -131,12 +154,34 @@ class ArtistServiceAdapter constructor(context: Context) {
         )
     }
 
+    suspend fun getBandsArtists() = suspendCoroutine<List<Artist>>{ cont->
+        requestQueue.add(getRequest("bands",
+            { response ->
+                val resp = JSONArray(response)
+                val list = mutableListOf<Artist>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    list.add(i, Artist(
+                        Id = item.getInt("id"),
+                        name = item.getString("name"),
+                        shortName = item.getString("name"),
+                        image = item.getString("image"),
+                        tipo = "Banda"))
+                }
+                cont.resume(list)
+            },
+            {
+                cont.resumeWithException(it)
+            })
+        )
+    }
+
     suspend fun getBand(bandId:Int) = suspendCoroutine { cont->
         requestQueue.add(getRequest("bands/$bandId",
             { response ->
                 val item = JSONObject(response)
                 Log.d("Response", item.toString())
-                val artist = Artist(
+                val artist = ArtistDetail(
                     Id = item.getInt("id"),
                     name = item.getString("name"),
                     shortName = item.getString("name"),
@@ -164,7 +209,7 @@ class ArtistServiceAdapter constructor(context: Context) {
                 val item = JSONObject(response)
                 Log.d("Response", item.toString())
 
-                val artist = Artist(
+                val artist = ArtistDetail(
                     Id = item.getInt("id"),
                     name = item.getString("name"),
                     shortName = item.getString("name"),
@@ -188,7 +233,7 @@ class ArtistServiceAdapter constructor(context: Context) {
     }
 
 
-    private fun cargarAlbumns(artist:Artist, item:JSONObject){
+    private fun cargarAlbumns(artist:ArtistDetail, item:JSONObject){
         val albumsJson = item.getJSONArray("albums")
 
         for (i in 0 until albumsJson.length()) {
@@ -209,7 +254,7 @@ class ArtistServiceAdapter constructor(context: Context) {
 
     }
 
-    private fun cargarPrizes(artist:Artist, item:JSONObject){
+    private fun cargarPrizes(artist:ArtistDetail, item:JSONObject){
         val prizesJson = item.getJSONArray("performerPrizes")
 
         for (i in 0 until prizesJson.length()) {
