@@ -39,17 +39,32 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="16dp" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:contentDescription="@string/release_date_label">
 
-            <DatePicker
-                android:id="@+id/txtAlbumDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:datePickerMode="spinner"
-                android:calendarViewShown="false"
-                android:hint="@string/release_date"
-                />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/text_release_date_label" />
+
+                <DatePicker
+                    android:id="@+id/txtAlbumDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:hint="@string/release_date"
+                    />
+
+            </LinearLayout>
 
 
         </com.google.android.material.textfield.TextInputLayout>

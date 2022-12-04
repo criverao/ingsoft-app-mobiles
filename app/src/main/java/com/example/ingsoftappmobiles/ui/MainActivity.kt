@@ -44,11 +44,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        /*createAlbumFab = findViewById(R.id.create_album_fab)
-        binding.createAlbumFab.setOnClickListener {
-            navController.navigate(R.id.action_navigation_albums_to_navigation_create_album)
-            createAlbumFab.visibility = View.GONE
-        }*/
     }
 
     override fun onSupportNavigateUp(): Boolean {
