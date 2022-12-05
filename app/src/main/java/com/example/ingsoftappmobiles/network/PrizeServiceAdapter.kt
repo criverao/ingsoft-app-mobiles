@@ -1,16 +1,12 @@
 package com.example.ingsoftappmobiles.network
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.*
-import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -19,7 +15,7 @@ import kotlin.coroutines.suspendCoroutine
 class PrizeServiceAdapter constructor(context: Context) {
     companion object{
             const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: PrizeServiceAdapter? = null
+        private var instance: PrizeServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: PrizeServiceAdapter(context).also {

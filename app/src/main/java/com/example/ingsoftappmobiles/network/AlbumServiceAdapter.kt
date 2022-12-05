@@ -21,7 +21,7 @@ class AlbumServiceAdapter constructor(context: Context) {
 
     companion object {
         const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: AlbumServiceAdapter? = null
+        private var instance: AlbumServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: AlbumServiceAdapter(context).also {
@@ -73,8 +73,8 @@ class AlbumServiceAdapter constructor(context: Context) {
                     releaseDate = item.getString("releaseDate"),
                     genre = item.getString("genre"),
                     description = item.getString("description"),
-                    tracks = mutableListOf<Track>(),
-                    comments = mutableListOf<Comment>(),
+                    tracks = mutableListOf(),
+                    comments = mutableListOf(),
                 )
                 loadTracks(album, item)
                 loadComments(album, item)
@@ -116,7 +116,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     }
 
     fun postAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit) {
-        var gson = Gson()
+        val gson = Gson()
 
         val postParams = mapOf<String, Any>(
             "name" to album.name,
@@ -138,7 +138,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     }
 
     fun postTrack(track: Track, onComplete:(resp:Track)->Unit, onError: (error:VolleyError)->Unit) {
-        var gson = Gson()
+        val gson = Gson()
 
         val postParams = mapOf(
             "name" to track.name,
@@ -159,7 +159,7 @@ class AlbumServiceAdapter constructor(context: Context) {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener, errorListener)
     }
 
-    fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
+    private fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
         return  JsonObjectRequest(Request.Method.POST, BASE_URL +path, body, responseListener, errorListener)
     }
 

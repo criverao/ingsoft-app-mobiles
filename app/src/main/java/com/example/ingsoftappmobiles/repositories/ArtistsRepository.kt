@@ -4,12 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
-import com.example.ingsoftappmobiles.database.dao.AlbumsDao
 import com.example.ingsoftappmobiles.database.dao.ArtistsDao
-import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.models.Artist
-import com.example.ingsoftappmobiles.network.AlbumServiceAdapter
-import com.example.ingsoftappmobiles.network.CacheManager
 import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
 class ArtistsRepository (val application: Application, private val artistsDao: ArtistsDao) {

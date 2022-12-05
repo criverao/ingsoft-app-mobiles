@@ -24,7 +24,7 @@ class ArtistDetailAdapter : RecyclerView.Adapter<ArtistDetailAdapter.ArtistDetai
             notifyDataSetChanged()
         }
 
-    var viewPool = RecyclerView.RecycledViewPool()
+    private var viewPool = RecyclerView.RecycledViewPool()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistDetailViewHolder {
         val withDataBinding: ArtistDetailBinding = DataBindingUtil.inflate(

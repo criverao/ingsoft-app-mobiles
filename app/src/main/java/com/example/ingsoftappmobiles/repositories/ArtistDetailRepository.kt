@@ -7,12 +7,10 @@ import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
 class ArtistDetailRepository (private val application: Application, private val prizeRepository: PrizeRepository){
     suspend fun refreshData(artistId: Int, tipo: String): ArtistDetail {
-        var artist:ArtistDetail
-        if (tipo.equals("Banda")){
-            artist = ArtistServiceAdapter.getInstance(application).getBand(artistId)
-        }
-        else {
-            artist = ArtistServiceAdapter.getInstance(application).getMusician(artistId)
+        val artist:ArtistDetail = if (tipo == "Banda"){
+            ArtistServiceAdapter.getInstance(application).getBand(artistId)
+        } else {
+            ArtistServiceAdapter.getInstance(application).getMusician(artistId)
         }
 
         var prize2: Prize

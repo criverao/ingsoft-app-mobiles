@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.viewmodels.ArtistViewModel
 import com.example.ingsoftappmobiles.databinding.FragmentArtistsBinding
 import com.example.ingsoftappmobiles.ui.adapters.ArtistsAdapter
@@ -51,8 +50,8 @@ class ArtistsFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        activity.actionBar?.title = getString(R.string.title_artists)
-        viewModel = ViewModelProvider(this, ArtistViewModel.Factory(activity.application)).get(ArtistViewModel::class.java)
+        //activity.actionBar?.title = getString(R.string.title_artists)
+        viewModel = ViewModelProvider(this, ArtistViewModel.Factory(activity.application))[ArtistViewModel::class.java]
         viewModel.artists.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.artists = this

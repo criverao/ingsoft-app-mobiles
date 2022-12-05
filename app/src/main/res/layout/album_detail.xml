@@ -107,40 +107,32 @@
                         android:text="@{albumDetail.recordLabel}"
                         android:textAppearance="?attr/textAppearanceListItem" />
                 </LinearLayout>
-
-
             </LinearLayout>
-
-
         </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/text_tracks_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/text_tracks_title"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/text_tracks_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center|center_vertical"
-                        android:text="@string/text_tracks_title"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/albumTrackRecyclerView"
@@ -150,68 +142,53 @@
 
         </LinearLayout>
 
-        </FrameLayout>
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_comments_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/text_comments_title"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/albumCommentRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                tools:listitem="@layout/album_comment_item"/>
 
-                <TextView
-                    android:id="@+id/text_comments_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/text_comments_title"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+        </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/albumCommentRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/album_comment_item"/>
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_description_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/text_album_description"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/text_description_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/text_album_description"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/text_album_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{albumDetail.description}"
+                android:textAppearance="?attr/textAppearanceListItem" />
 
-                <TextView
-                    android:id="@+id/text_album_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{albumDetail.description}"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
+        </LinearLayout>
     </LinearLayout>
 </layout>

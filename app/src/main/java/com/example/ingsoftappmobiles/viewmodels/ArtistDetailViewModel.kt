@@ -31,7 +31,7 @@ class ArtistDetailViewModel(application: Application, artistId: Int, tipo:String
         get() = _isNetworkErrorShown
 
     val id:Int = artistId
-    val tipo2:String = tipo
+    private val tipo2:String = tipo
 
     init {
         refreshDataFromNetwork()

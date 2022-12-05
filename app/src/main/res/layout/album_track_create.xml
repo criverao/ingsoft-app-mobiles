@@ -39,6 +39,7 @@
             android:textColorHint="#757575"
             android:inputType="textPersonName"
             android:selectAllOnFocus="true"
+            android:importantForAutofill="no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
