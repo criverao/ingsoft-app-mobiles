@@ -3,9 +3,11 @@ package com.example.ingsoftappmobiles.ui
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -13,6 +15,7 @@ import androidx.test.filters.LargeTest
 import com.example.ingsoftappmobiles.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
@@ -21,14 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ColeccionistaTest {
+class DetalleColeccionistaTest {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun coleccionistaTest() {
+    fun detalleColeccionistaTest() {
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.navigation_collectors), withContentDescription("Coleccionistas"),
@@ -46,47 +49,57 @@ class ColeccionistaTest {
 
         val textView = onView(
             allOf(
-                withText("Coleccionistas"),
+                withText("Listado de Coleccionistas"),
                 withParent(
                     allOf(
-                        withId(R.id.my_toolbar),
-                        withParent(withId(R.id.container))
+                        withId(androidx.constraintlayout.widget.R.id.action_bar),
+                        withParent(withId(androidx.constraintlayout.widget.R.id.action_bar_container))
                     )
                 ),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Coleccionistas")))
+        textView.check(matches(withText("Listado de Coleccionistas")))
 
-        val bottomNavigationItemView2 = onView(
+        val recyclerView = onView(
             allOf(
-                withId(R.id.navigation_artists), withContentDescription("Artistas"),
+                withId(R.id.collectorsRecyclerView),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
+                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    0
+                )
             )
         )
-        bottomNavigationItemView2.perform(click())
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(1, click()))
 
-        val bottomNavigationItemView3 = onView(
+        val appCompatImageButton = onView(
             allOf(
-                withId(R.id.navigation_collectors), withContentDescription("Coleccionistas"),
+                withContentDescription("Navigate up"),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
+                    allOf(
+                        withId(androidx.constraintlayout.widget.R.id.action_bar),
+                        childAtPosition(
+                            withId(androidx.constraintlayout.widget.R.id.action_bar_container),
+                            0
+                        )
                     ),
                     2
                 ),
                 isDisplayed()
             )
         )
-        bottomNavigationItemView3.perform(click())
+        appCompatImageButton.perform(click())
+
+        val recyclerView2 = onView(
+            allOf(
+                withId(R.id.collectorsRecyclerView),
+                childAtPosition(
+                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    0
+                )
+            )
+        )
+        recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
     }
 
     private fun childAtPosition(

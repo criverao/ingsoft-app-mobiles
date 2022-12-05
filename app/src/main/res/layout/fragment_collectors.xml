@@ -7,8 +7,9 @@
     tools:context=".ui.collectors.CollectorFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collectosRecyclerView"
+        android:id="@+id/collectorsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.ingsoftappmobiles.ui.albums
 
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.example.ingsoftappmobiles.database.dao.VinylRoomDatabase
 import com.example.ingsoftappmobiles.databinding.AlbumCreateBinding
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
@@ -50,6 +52,7 @@ class CreateAlbumFragment : Fragment() {
         //recyclerView.adapter = viewModelAdapter
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -91,7 +94,7 @@ class CreateAlbumFragment : Fragment() {
             }
 
             val format = SimpleDateFormat("yyyy-MM-dd")
-            val strDate:String = format.format(calendar.getTime())
+            val strDate:String = format.format(calendar.time)
             strDate.plus("T00:00:00-05:00")
 
 
@@ -99,7 +102,10 @@ class CreateAlbumFragment : Fragment() {
                 descTxt?.text.toString(),genreTxt?.text.toString(),discTxt?.text.toString(),
                 year.toString(), " ")
 
-            albumsRepository = AlbumsRepository(activity.application)
+            albumsRepository = AlbumsRepository(
+                activity.application,
+                VinylRoomDatabase.getDatabase(activity.applicationContext).albumsDao()
+            )
             albumsRepository.createAlbum(album,{
                 Toast.makeText(context, "El album fue creado con éxito", Toast.LENGTH_SHORT).show()
                 NavHostFragment.findNavController(this@CreateAlbumFragment).navigateUp()
@@ -129,10 +135,4 @@ class CreateAlbumFragment : Fragment() {
         _binding = null
     }
 
-    private fun onNetworkError() {
-/*        if(!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
-            viewModel.onNetworkErrorShown()
-        }*/
-    }
 }

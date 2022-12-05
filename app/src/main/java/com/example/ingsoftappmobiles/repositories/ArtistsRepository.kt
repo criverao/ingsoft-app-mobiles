@@ -1,26 +1,41 @@
 package com.example.ingsoftappmobiles.repositories
 
 import android.app.Application
-import com.android.volley.VolleyError
+import android.content.Context
+import android.net.ConnectivityManager
+import android.util.Log
+import com.example.ingsoftappmobiles.database.dao.ArtistsDao
 import com.example.ingsoftappmobiles.models.Artist
 import com.example.ingsoftappmobiles.network.ArtistServiceAdapter
 
-class ArtistsRepository (val application: Application) {
-    fun refreshData(callbackMusician: (List<Artist>)->Unit, callbackBand: (List<Artist>)->Unit, onError: (VolleyError)->Unit) {
-        //Determinar la fuente de datos que se va a utilizar. Si es necesario consultar la red, ejecutar el siguiente código
-        ArtistServiceAdapter.getInstance(application).getMusiciansOnArtist({
-            //Guardar los artistes de la variable it en un almacén de datos local para uso futuro
-            callbackMusician(it)
-        },
-            onError
-        )
+class ArtistsRepository (val application: Application, private val artistsDao: ArtistsDao) {
+    suspend fun refreshData() : List<Artist> {
 
-        ArtistServiceAdapter.getInstance(application).getBandsOnArtist({
-            //Guardar los artistes de la variable it en un almacén de datos local para uso futuro
-            callbackBand(it)
-        },
-            onError
-        )
+        var cached = artistsDao.getArtists()
+        return if(cached.isNullOrEmpty()){
+            Log.d("Cache decision", "get from network")
+            val cm = application.baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if( cm.activeNetworkInfo?.type != ConnectivityManager.TYPE_WIFI && cm.activeNetworkInfo?.type != ConnectivityManager.TYPE_MOBILE){
+                Log.d("Cache decision", "get Room")
+                emptyList()
+            } else {
+                Log.d("Cache decision", "get from network")
+                cached =ArtistServiceAdapter.getInstance(application).getMusiciansArtists()
+                insertArtists(cached)
+                cached = ArtistServiceAdapter.getInstance(application).getBandsArtists()
+                insertArtists(cached)
+                cached
+            }
+        } else {
+            Log.d("Cache decision", "get from caché")
+            cached
+        }
 
+    }
+
+    private suspend fun insertArtists(artists: List<Artist>){
+        for (artist in artists) {
+            artistsDao.insert(artist)
+        }
     }
 }

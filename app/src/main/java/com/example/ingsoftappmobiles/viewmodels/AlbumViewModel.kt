@@ -2,15 +2,19 @@ package com.example.ingsoftappmobiles.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.ingsoftappmobiles.database.dao.VinylRoomDatabase
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AlbumsViewModel(application: Application) : AndroidViewModel(application) {
+class AlbumViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val albumsRepository = AlbumsRepository(application)
+    private val albumsRepository = AlbumsRepository(
+        application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao()
+    )
 
     private val _albums = MutableLiveData<List<Album>>()
 
@@ -53,9 +57,9 @@ class AlbumsViewModel(application: Application) : AndroidViewModel(application) 
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AlbumsViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return AlbumsViewModel(app) as T
+                return AlbumViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

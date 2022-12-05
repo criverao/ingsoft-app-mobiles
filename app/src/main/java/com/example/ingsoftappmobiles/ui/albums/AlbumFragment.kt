@@ -7,22 +7,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
-import com.example.ingsoftappmobiles.databinding.AlbumsFragmentBinding
+import com.example.ingsoftappmobiles.databinding.AlbumFragmentBinding
 import com.example.ingsoftappmobiles.ui.adapters.AlbumsAdapter
-import com.example.ingsoftappmobiles.viewmodels.AlbumsViewModel
+import com.example.ingsoftappmobiles.viewmodels.AlbumViewModel
 
-class AlbumsFragment : Fragment() {
+class AlbumFragment : Fragment() {
 
-    private var _binding: AlbumsFragmentBinding? = null
+    private var _binding: AlbumFragmentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: AlbumsViewModel
+    private lateinit var viewModel: AlbumViewModel
     private var viewModelAdapter: AlbumsAdapter? = null
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class AlbumsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = AlbumsFragmentBinding.inflate(inflater, container, false)
+        _binding = AlbumFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         viewModelAdapter = AlbumsAdapter()
@@ -49,8 +50,13 @@ class AlbumsFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        activity.actionBar?.title = getString(R.string.title_albums)
-        viewModel = ViewModelProvider(this, AlbumsViewModel.Factory(activity.application))[AlbumsViewModel::class.java]
+        //activity.actionBar?.title = getString(R.string.title_albums)
+
+        binding.addAlbumButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_albums_to_navigation_create_album)
+        }
+
+        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))[AlbumViewModel::class.java]
         viewModel.albums.observe(viewLifecycleOwner) {
             it.apply {
                 viewModelAdapter!!.albums = this

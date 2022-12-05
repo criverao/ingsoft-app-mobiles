@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/albumsFragment">
+    app:startDestination="@+id/navigation_albums">
 
     <fragment
-        android:id="@+id/albumsFragment"
-        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumsFragment"
+        android:id="@+id/navigation_albums"
+        android:name="com.example.ingsoftappmobiles.ui.albums.AlbumFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/albums_fragment" >
+        tools:layout="@layout/album_fragment" >
         <action
             android:id="@+id/action_navigation_albums_to_navigation_create_album"
             app:destination="@id/navigation_create_album" />
         <action
-            android:id="@+id/action_albumsFragment_to_albumDetailFragment"
+            android:id="@+id/show_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
     </fragment>
 
@@ -28,23 +28,72 @@
     <fragment
         android:id="@+id/albumDetailFragment"
         android:name="com.example.ingsoftappmobiles.ui.albums.AlbumDetailFragment"
-        android:label="album_detail_fragment"
+        android:label="@string/title_album_detail_fragment"
         tools:layout="@layout/album_detail_fragment" >
+        <action
+            android:id="@+id/show_createTrackFragment"
+            app:destination="@id/navigation_create_track" />
         <argument
             android:name="albumId"
             app:argType="integer" />
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_create_track"
+        android:name="com.example.ingsoftappmobiles.ui.albums.CreateTrackFragment"
+        android:label="@string/title_create_track"
+        tools:layout="@layout/album_track_create" >
+
+        <argument
+            android:name="albumId"
+            app:argType="integer" />
+    </fragment>
+
+
+    <fragment
         android:id="@+id/navigation_artists"
         android:name="com.example.ingsoftappmobiles.ui.artists.ArtistsFragment"
         android:label="@string/title_artists"
-        tools:layout="@layout/fragment_artists" />
+        tools:layout="@layout/fragment_artists">
+        <action
+            android:id="@+id/action_navigation_artist_to_navigation_artist_detail"
+            app:destination="@id/navigation_artist_detail" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_artist_detail"
+        android:name="com.example.ingsoftappmobiles.ui.artists.ArtistDetailFragment"
+        android:label="@string/title_artist_detail_fragment"
+        tools:layout="@layout/artist_detail_fragment" >
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+        <argument
+            android:name="tipo"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_collectors"
         android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorFragment"
         android:label="@string/title_collectors"
-        tools:layout="@layout/fragment_collectors" />
+        tools:layout="@layout/fragment_collectors">
+
+        <action
+            android:id="@+id/show_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.example.ingsoftappmobiles.ui.collectors.CollectorDetailFragment"
+        android:label="@string/title_collector_detail_fragment"
+        tools:layout="@layout/collector_detail_fragment" >
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

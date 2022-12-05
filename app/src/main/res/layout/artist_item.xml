@@ -8,30 +8,32 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:cardElevation="4dp"
-            android:layout_marginVertical="5dp"
-            android:layout_marginHorizontal="8dp"
-            >
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            app:cardElevation="4dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center"
-                    android:contentDescription="@{artist.name}"
-                    />
+                    android:contentDescription="@{artist.name}" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{artist.name}"
+                    android:text="@{artist.shortName}"
+                    android:minHeight="20dp"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -39,7 +41,9 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{artist.name}" />
+                    android:text="@{artist.tipo}"
+                    android:minHeight="20dp"
+                    android:textSize="16sp"/>
                 </LinearLayout>
 
         </androidx.cardview.widget.CardView>

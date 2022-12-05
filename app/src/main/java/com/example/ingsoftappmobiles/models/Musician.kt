@@ -4,6 +4,6 @@ data class Musician(
     val Id:Int,
     val name:String,
     val image:String,
-    val description:String,
+    var description:String,
     val birthDate:String
     )

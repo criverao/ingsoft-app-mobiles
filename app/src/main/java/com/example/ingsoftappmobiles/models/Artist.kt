@@ -1,11 +1,13 @@
 package com.example.ingsoftappmobiles.models
 
-data class Artist(
-    val Id:Int,
-    val name:String,
-    val image: String,
-    val description:String,
-    val creationBrithDate:String,
-    val tipo:String
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "artists_table")
+data class Artist(
+    @PrimaryKey val Id:Int,
+    val name:String,
+    var shortName:String,
+    val image: String,
+    val tipo:String
 )

@@ -3,18 +3,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.BandItemBinding
-
 import com.example.ingsoftappmobiles.models.Band
-import coil.load
 
 class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
 
-    var bands :List<Band> = emptyList()
+    private var bands :List<Band> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -33,23 +30,13 @@ class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
     override fun onBindViewHolder(holder: BandViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.band = bands[position]
-            bands[position].image.let { urlImagen ->
-                val imgUri = urlImagen.toUri().buildUpon().scheme("https").build()
-                it.imageView.load(imgUri)
-            }
         }
 
-/*        holder.viewDataBinding.root.setOnClickListener {
-            val action = BandFragmentDirections.actionBandFragmentToCommentFragment(bands[position].bandId)
-            // Navigate using that action
-            holder.viewDataBinding.root.findNavController().navigate(action)
-        }*/
     }
 
     override fun getItemCount(): Int {
         return bands.size
     }
-
 
     class BandViewHolder(val viewDataBinding: BandItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
@@ -58,7 +45,6 @@ class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
             val LAYOUT = R.layout.band_item
         }
     }
-
 
 }
 

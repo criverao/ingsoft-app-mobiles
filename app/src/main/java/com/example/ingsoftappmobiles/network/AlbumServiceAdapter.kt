@@ -9,8 +9,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.ingsoftappmobiles.models.Album
-import com.example.ingsoftappmobiles.models.AlbumDetail
+import com.example.ingsoftappmobiles.models.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -22,7 +21,7 @@ class AlbumServiceAdapter constructor(context: Context) {
 
     companion object {
         const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: AlbumServiceAdapter? = null
+        private var instance: AlbumServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: AlbumServiceAdapter(context).also {
@@ -50,8 +49,8 @@ class AlbumServiceAdapter constructor(context: Context) {
                         releaseDate = item.getString("releaseDate"),
                         genre = item.getString("genre"),
                         description = item.getString("description"),
-                        releaseYear = item.getString("releaseDate").substring(0..3),
-                        excerpt = item.getString("description").substring(0..5) + "...")
+                        releaseYear = item.getString("releaseDate"),
+                        excerpt = item.getString("description"))
                     list.add(i, album) // se agrega a medida que se procesa la respuesta
                 }
                 cont.resume(list)
@@ -64,8 +63,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     suspend fun getAlbum(albumId:Int) = suspendCoroutine { cont->
         requestQueue.add(getRequest("albums/$albumId",
             { response ->
-                val resp = JSONArray(response)
-                val item = resp.getJSONObject(0)
+                val item = JSONObject(response)
                 Log.d("Response", item.toString())
                 val album = AlbumDetail(
                     albumId = item.getInt("id"),
@@ -74,9 +72,12 @@ class AlbumServiceAdapter constructor(context: Context) {
                     recordLabel = item.getString("recordLabel"),
                     releaseDate = item.getString("releaseDate"),
                     genre = item.getString("genre"),
-                    description = item.getString("description")
+                    description = item.getString("description"),
+                    tracks = mutableListOf(),
+                    comments = mutableListOf(),
                 )
-
+                loadTracks(album, item)
+                loadComments(album, item)
                 cont.resume(album)
             },
             {
@@ -84,8 +85,38 @@ class AlbumServiceAdapter constructor(context: Context) {
             }))
     }
 
+    private fun loadTracks(album: AlbumDetail, item:JSONObject){
+        val tracksJson = item.getJSONArray("tracks")
+
+        for (i in 0 until tracksJson.length()) {
+            val item = tracksJson.getJSONObject(i)
+            album.tracks.add(i,
+                Track(
+                    Id = item.getInt("id"),
+                    name = item.getString("name"),
+                    duration = item.getString("duration")
+                ))
+        }
+
+    }
+
+    private fun loadComments(album: AlbumDetail, item:JSONObject){
+        val tracksJson = item.getJSONArray("comments")
+
+        for (i in 0 until tracksJson.length()) {
+            val item = tracksJson.getJSONObject(i)
+            album.comments.add(i,
+                Comment(
+                    Id = item.getInt("id"),
+                    description = item.getString("description"),
+                    rating = item.getString("rating")
+                ))
+        }
+
+    }
+
     fun postAlbum(album:Album, onComplete:(resp:Album)->Unit, onError: (error:VolleyError)->Unit) {
-        var gson = Gson()
+        val gson = Gson()
 
         val postParams = mapOf<String, Any>(
             "name" to album.name,
@@ -106,11 +137,29 @@ class AlbumServiceAdapter constructor(context: Context) {
             }))
     }
 
+    fun postTrack(track: Track, onComplete:(resp:Track)->Unit, onError: (error:VolleyError)->Unit) {
+        val gson = Gson()
+
+        val postParams = mapOf(
+            "name" to track.name,
+            "duration" to track.duration
+        )
+        Log.d("TAG", JSONObject(postParams).toString())
+        requestQueue.add(postRequest("albums/" + track.Id + "/tracks",
+            JSONObject(postParams),
+            { response ->
+                onComplete(gson.fromJson(response.toString(), Track::class.java))
+            },
+            {
+                onError(it)
+            }))
+    }
+
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener, errorListener)
     }
 
-    fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
+    private fun postRequest(path: String, body: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): JsonObjectRequest {
         return  JsonObjectRequest(Request.Method.POST, BASE_URL +path, body, responseListener, errorListener)
     }
 
