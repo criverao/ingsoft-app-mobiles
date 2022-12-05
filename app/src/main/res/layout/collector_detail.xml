@@ -145,7 +145,7 @@
                         android:layout_height="24dp"
                         android:layout_marginTop="4dp"
                         android:baselineAlignBottom="true"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@{collectorDetail.name}"
                         android:src="@drawable/ic_baseline_favorite_24" />
 
                 </LinearLayout>
