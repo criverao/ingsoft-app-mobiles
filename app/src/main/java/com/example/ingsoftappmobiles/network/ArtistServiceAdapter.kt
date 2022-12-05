@@ -95,8 +95,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                         description = item.getString("description"),
                         creationBrithDate = item.getString("birthDate"),
                         tipo="Solista",
-                        albums=mutableListOf<Album>(),
-                        prizes = mutableListOf<Prize>()))
+                        albums=mutableListOf(),
+                        prizes = mutableListOf()))
                 }
                 cont.resume(list)
             },
@@ -143,8 +143,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                         description = item.getString("description"),
                         creationBrithDate = item.getString("creationDate"),
                         tipo = "Banda",
-                        albums = mutableListOf<Album>(),
-                        prizes = mutableListOf<Prize>()))
+                        albums = mutableListOf(),
+                        prizes = mutableListOf()))
                 }
                 cont.resume(list)
             },
@@ -189,8 +189,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     creationBrithDate = item.getString("creationDate").substring(0..9),
                     tipo = "Banda",
-                    mutableListOf<Album>(),
-                    prizes = mutableListOf<Prize>()
+                    mutableListOf(),
+                    prizes = mutableListOf()
                 )
 
                 cargarAlbumns(artist, item)
@@ -217,8 +217,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     creationBrithDate = item.getString("birthDate").substring(0..9),
                     tipo = "Solista",
-                    albums = mutableListOf<Album>(),
-                    prizes = mutableListOf<Prize>()
+                    albums = mutableListOf(),
+                    prizes = mutableListOf()
                 )
 
                 cargarAlbumns(artist, item)

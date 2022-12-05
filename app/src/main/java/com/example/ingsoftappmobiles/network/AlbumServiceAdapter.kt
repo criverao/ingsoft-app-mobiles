@@ -73,8 +73,8 @@ class AlbumServiceAdapter constructor(context: Context) {
                     releaseDate = item.getString("releaseDate"),
                     genre = item.getString("genre"),
                     description = item.getString("description"),
-                    tracks = mutableListOf<Track>(),
-                    comments = mutableListOf<Comment>(),
+                    tracks = mutableListOf(),
+                    comments = mutableListOf(),
                 )
                 loadTracks(album, item)
                 loadComments(album, item)

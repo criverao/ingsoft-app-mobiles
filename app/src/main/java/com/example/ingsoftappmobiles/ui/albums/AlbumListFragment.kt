@@ -59,12 +59,12 @@ class AlbumListFragment : Fragment() {
         }
         activity.actionBar?.title = getString(R.string.title_albums)
         viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))[AlbumViewModel::class.java]
-        viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> {
+        viewModel.albums.observe(viewLifecycleOwner, Observer {
             it.apply {
                 viewModelAdapter!!.albums = this
             }
         })
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
     }

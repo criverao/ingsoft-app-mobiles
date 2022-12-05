@@ -48,7 +48,7 @@ class ArtistDetailFragment : Fragment() {
         activity.actionBar?.title = getString(R.string.title_artist_detail_fragment)
         val args: ArtistDetailFragmentArgs by navArgs()
         Log.d("Args", args.artistId.toString())
-        Log.d("Args", args.tipo.toString())
+        Log.d("Args", args.tipo)
 
         viewModel = ViewModelProvider(this, ArtistDetailViewModel.Factory(activity.application, args.artistId, args.tipo))[ArtistDetailViewModel::class.java]
         viewModel.artist.observe(viewLifecycleOwner) {
