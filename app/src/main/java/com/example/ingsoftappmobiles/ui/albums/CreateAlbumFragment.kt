@@ -16,6 +16,7 @@ import com.example.ingsoftappmobiles.databinding.AlbumCreateBinding
 import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
 import com.google.android.material.textfield.TextInputEditText
+import java.text.DateFormat.getDateInstance
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -91,7 +92,7 @@ class CreateAlbumFragment : Fragment() {
                 }
             }
 
-            val format = SimpleDateFormat("yyyy-MM-dd")
+            val format = getDateInstance()
             val strDate:String = format.format(calendar.getTime())
             strDate.plus("T00:00:00-05:00")
 
