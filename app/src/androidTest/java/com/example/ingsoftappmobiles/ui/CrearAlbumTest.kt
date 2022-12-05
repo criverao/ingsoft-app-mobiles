@@ -1,4 +1,6 @@
+/*
 package com.example.ingsoftappmobiles.ui
+
 
 
 import android.view.View
@@ -165,3 +167,4 @@ class CrearAlbumTest {
         }
     }
 }
+*/

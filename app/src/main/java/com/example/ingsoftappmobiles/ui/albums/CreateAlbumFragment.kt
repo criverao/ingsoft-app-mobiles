@@ -17,7 +17,6 @@ import com.example.ingsoftappmobiles.models.Album
 import com.example.ingsoftappmobiles.repositories.AlbumsRepository
 import com.google.android.material.textfield.TextInputEditText
 import java.text.DateFormat.getDateInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateAlbumFragment : Fragment() {

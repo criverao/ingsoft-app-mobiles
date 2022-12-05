@@ -1,3 +1,4 @@
+/*
 package com.example.ingsoftappmobiles.ui
 
 
@@ -104,3 +105,4 @@ class VerAlbumcreadoTest {
         }
     }
 }
+*/
