@@ -18,7 +18,7 @@ class CollectorServiceAdapter constructor(context: Context){
 
     companion object {
         const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: CollectorServiceAdapter? = null
+        private var instance: CollectorServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: CollectorServiceAdapter(context).also {
@@ -61,8 +61,8 @@ class CollectorServiceAdapter constructor(context: Context){
                     name = item.getString("name"),
                     telephone = item.getString("telephone"),
                     email = item.getString("email"),
-                    albums = mutableListOf<CollectorAlbum>(),
-                    musicians = mutableListOf<Musician>()
+                    albums = mutableListOf(),
+                    musicians = mutableListOf()
                 )
                 loadAlbums(collector, item)
                 loadMusicians(collector, item)
@@ -108,7 +108,7 @@ class CollectorServiceAdapter constructor(context: Context){
 
     }
 
-    suspend fun getCollectorAlbum(collectorId:Int, albumId:Int) = suspendCoroutine<CollectorAlbum>{ cont->
+    suspend fun getCollectorAlbum(collectorId:Int, albumId:Int) = suspendCoroutine { cont->
         requestQueue.add(getRequest("collectors/$collectorId/albums/$albumId/",
             { response ->
                 val resp = JSONArray(response)

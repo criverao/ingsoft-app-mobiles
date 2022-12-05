@@ -11,7 +11,7 @@ import com.example.ingsoftappmobiles.models.Band
 
 class BandsAdapter  : RecyclerView.Adapter<BandsAdapter.BandViewHolder>(){
 
-    var bands :List<Band> = emptyList()
+    private var bands :List<Band> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value

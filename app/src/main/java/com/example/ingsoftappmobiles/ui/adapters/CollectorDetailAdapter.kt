@@ -20,7 +20,7 @@ class CollectorDetailAdapter : RecyclerView.Adapter<CollectorDetailAdapter.Colle
             notifyDataSetChanged()
         }
 
-    var viewPool = RecyclerView.RecycledViewPool()
+    private var viewPool = RecyclerView.RecycledViewPool()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectorDetailViewHolder {
         val withDataBinding: CollectorDetailBinding? = DataBindingUtil.inflate(

@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ingsoftappmobiles.R
 import com.example.ingsoftappmobiles.databinding.ArtistDetailFragmentBinding
 import com.example.ingsoftappmobiles.ui.adapters.ArtistDetailAdapter
 import com.example.ingsoftappmobiles.viewmodels.ArtistDetailViewModel
@@ -45,10 +44,10 @@ class ArtistDetailFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        activity.actionBar?.title = getString(R.string.title_artist_detail_fragment)
+        //activity.actionBar?.title = getString(R.string.title_artist_detail_fragment)
         val args: ArtistDetailFragmentArgs by navArgs()
         Log.d("Args", args.artistId.toString())
-        Log.d("Args", args.tipo.toString())
+        Log.d("Args", args.tipo)
 
         viewModel = ViewModelProvider(this, ArtistDetailViewModel.Factory(activity.application, args.artistId, args.tipo))[ArtistDetailViewModel::class.java]
         viewModel.artist.observe(viewLifecycleOwner) {

@@ -1,6 +1,7 @@
 package com.example.ingsoftappmobiles.ui.albums
 
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,6 +52,7 @@ class CreateAlbumFragment : Fragment() {
         //recyclerView.adapter = viewModelAdapter
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -92,7 +94,7 @@ class CreateAlbumFragment : Fragment() {
             }
 
             val format = SimpleDateFormat("yyyy-MM-dd")
-            val strDate:String = format.format(calendar.getTime())
+            val strDate:String = format.format(calendar.time)
             strDate.plus("T00:00:00-05:00")
 
 
@@ -133,10 +135,4 @@ class CreateAlbumFragment : Fragment() {
         _binding = null
     }
 
-    private fun onNetworkError() {
-/*        if(!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
-            viewModel.onNetworkErrorShown()
-        }*/
-    }
 }

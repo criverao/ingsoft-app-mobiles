@@ -1,16 +1,12 @@
 package com.example.ingsoftappmobiles.network
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ingsoftappmobiles.models.*
-import com.example.ingsoftappmobiles.ui.adapters.ArtistDetailAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -20,7 +16,7 @@ import kotlin.coroutines.suspendCoroutine
 class ArtistServiceAdapter constructor(context: Context) {
     companion object{
             const val BASE_URL= "https://vinyls-back-group23.herokuapp.com/"
-        var instance: ArtistServiceAdapter? = null
+        private var instance: ArtistServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: ArtistServiceAdapter(context).also {
@@ -80,7 +76,7 @@ class ArtistServiceAdapter constructor(context: Context) {
     }
 
 
-    suspend fun getMusiciansOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
+    /*suspend fun getMusiciansOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("musicians",
             { response ->
                 val resp = JSONArray(response)
@@ -95,8 +91,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                         description = item.getString("description"),
                         creationBrithDate = item.getString("birthDate"),
                         tipo="Solista",
-                        albums=mutableListOf<Album>(),
-                        prizes = mutableListOf<Prize>()))
+                        albums=mutableListOf(),
+                        prizes = mutableListOf()))
                 }
                 cont.resume(list)
             },
@@ -104,7 +100,7 @@ class ArtistServiceAdapter constructor(context: Context) {
                 cont.resumeWithException(it)
             })
         )
-    }
+    }*/
 
     suspend fun getMusiciansArtists() = suspendCoroutine<List<Artist>>{ cont->
         requestQueue.add(getRequest("musicians",
@@ -128,7 +124,7 @@ class ArtistServiceAdapter constructor(context: Context) {
         )
     }
 
-    suspend fun getBandsOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
+    /*suspend fun getBandsOnArtist() = suspendCoroutine<List<ArtistDetail>>{ cont->
         requestQueue.add(getRequest("bands",
             { response ->
                 val resp = JSONArray(response)
@@ -143,8 +139,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                         description = item.getString("description"),
                         creationBrithDate = item.getString("creationDate"),
                         tipo = "Banda",
-                        albums = mutableListOf<Album>(),
-                        prizes = mutableListOf<Prize>()))
+                        albums = mutableListOf(),
+                        prizes = mutableListOf()))
                 }
                 cont.resume(list)
             },
@@ -152,7 +148,7 @@ class ArtistServiceAdapter constructor(context: Context) {
                 cont.resumeWithException(it)
             })
         )
-    }
+    }*/
 
     suspend fun getBandsArtists() = suspendCoroutine<List<Artist>>{ cont->
         requestQueue.add(getRequest("bands",
@@ -189,8 +185,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     creationBrithDate = item.getString("creationDate").substring(0..9),
                     tipo = "Banda",
-                    mutableListOf<Album>(),
-                    prizes = mutableListOf<Prize>()
+                    mutableListOf(),
+                    prizes = mutableListOf()
                 )
 
                 cargarAlbumns(artist, item)
@@ -217,8 +213,8 @@ class ArtistServiceAdapter constructor(context: Context) {
                     description = item.getString("description"),
                     creationBrithDate = item.getString("birthDate").substring(0..9),
                     tipo = "Solista",
-                    albums = mutableListOf<Album>(),
-                    prizes = mutableListOf<Prize>()
+                    albums = mutableListOf(),
+                    prizes = mutableListOf()
                 )
 
                 cargarAlbumns(artist, item)
@@ -273,11 +269,5 @@ class ArtistServiceAdapter constructor(context: Context) {
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener,errorListener)
-    }
-    private fun postRequest(path: String, body: JSONObject,  responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ):JsonObjectRequest{
-        return  JsonObjectRequest(Request.Method.POST, BASE_URL+path, body, responseListener, errorListener)
-    }
-    private fun putRequest(path: String, body: JSONObject,  responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ):JsonObjectRequest{
-        return  JsonObjectRequest(Request.Method.PUT, BASE_URL+path, body, responseListener, errorListener)
     }
 }
